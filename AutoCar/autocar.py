@@ -17,7 +17,7 @@ app.secret_key = os.getenv("APP_SECRET") # secret key used for cookies in the fu
 
 @app.route('/')
 def index():
-    return "hey guys this is flask"
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost")
