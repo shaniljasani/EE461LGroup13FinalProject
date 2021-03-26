@@ -148,6 +148,7 @@ body{
 }
 .my-cars .card{
 	box-shadow: 0 0 20px #ccc;
+	margin-bottom: 25px;
 }
 .my-cars .card img{
 	width: 100%;
@@ -161,6 +162,7 @@ body{
 }
 .my-cars .card-footer{
 	background-color: var(--navy);
+	text-align: center;
 }
 .my-cars .card-footer a{
 	color: var(--white);
