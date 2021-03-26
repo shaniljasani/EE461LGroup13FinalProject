@@ -1,0 +1,151 @@
+/* This CSS file sets up the style for the entire site */
+
+/* Font Library */
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+* {
+    font-family: "Nunito";
+}
+
+/* Global Colors */
+
+:root {
+    --burntorange: #ce4912;
+    --orange: #f36b1c;
+    --navy: #042c71;
+    --blue: #084387;
+    --lightblue: #0b61b0;
+    --yellow: #f8d605; 
+    --white: #f4f4f4;
+	--gray: #666666;
+}
+
+body {
+	background: var(--white);
+}
+
+.hover-orange:hover {
+	color: var(--orange);
+}
+
+/* Spacing */
+
+body{
+	padding: 0;
+	margin: 0;	
+}
+
+/* Navigation Bar */
+
+.navbar{
+	background: var(--navy);
+}
+.nav-link , .navbar-brand{
+	color: var(--white);
+	cursor: pointer;
+}
+.nav-link{
+	margin-right: 1em !important;
+}
+.nav-link:hover{
+	background: var(--white);
+	color: var(--orange);
+}
+.navbar-collapse{
+ justify-content: flex-end;
+}
+.navbar-toggler{
+  background:#fff !important;
+}
+
+/* Header Styles */
+
+.header{
+	position: relative;
+	background-image: url('../img/cover.jpg');
+
+	background-size: cover;
+	background-position: center;
+}
+.overlay{
+	position: absolute;
+	min-height: 100%;
+	min-width: 100%;
+	left: 0;
+	top: 0;
+	background: rgba(255, 81, 0, 0.4);
+}
+.description{
+    position: absolute;
+    top: 30%;
+    margin: auto;
+    padding: 2em;
+
+}
+.description h1{
+	color: var(--navy);
+}
+.description p{
+	color: var(--white);
+	font-size: 20px;
+	width: 50%;
+	line-height: 1.5;
+}
+.description button{
+	border:1px  solid var(--orange);
+	background: var(--burntorange);
+	color:#fff;
+}
+.description button:hover{
+	background: var(--navy);
+}
+
+/* About Section */
+
+.about{
+	margin: 4em 0;
+	padding: 1em;
+	position: relative;
+}
+.about h1{
+	color:var(--burntorange);
+	margin: 2em;
+}
+.about img{
+	height: 100%;
+    width: 100%;
+    border-radius: 50%
+}
+.about span{
+	display: block;
+	color: var(--gray);
+	position: absolute;
+	left: 115px;
+}
+.about .desc{
+	padding: 2em;
+	border-left:4px solid var(--lightblue);
+}
+.about .desc h3{
+	color: var(--lightblue);
+}
+.about .desc p{
+	line-height:2;
+	color:var(--gray);
+}
+.contact-form h1{
+	padding:2em 1px;
+	color: #F97300; 
+}
+.contact-form .right{
+	max-width: 600px;
+}
+.contact-form .right .btn-secondary{
+	background:  #F97300;
+	color: #fff;
+	border:0;
+}
+.contact-form .right .form-control::placeholder{
+	color: #888;
+	font-size: 16px;
+}

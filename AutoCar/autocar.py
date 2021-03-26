@@ -17,7 +17,7 @@ app.secret_key = os.getenv("APP_SECRET") # secret key used for cookies in the fu
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("home.html")
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost")
