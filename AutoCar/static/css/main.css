@@ -18,6 +18,8 @@
     --yellow: #f8d605; 
     --white: #f4f4f4;
 	--gray: #666666;
+	--lightgray: #c9c9c9;
+	--black: #0a0a0a;
 }
 
 body {
@@ -133,6 +135,126 @@ body{
 	line-height:2;
 	color:var(--gray);
 }
+
+/* My Cars Section */
+
+.my-cars{
+	margin: 4em 0;
+	position: relative;	
+}
+.my-cars h1{
+	color: var(--black);
+	margin: 2em;	
+}
+.my-cars .card{
+	box-shadow: 0 0 20px #ccc;
+}
+.my-cars .card img{
+	width: 100%;
+}
+.my-cars .card-title{
+	color: var(--burntorange);
+	 
+}
+.my-cars .card-body{
+	padding: 1em;
+}
+.my-cars .card-footer{
+	background-color: var(--navy);
+}
+.my-cars .card-footer a{
+	color: var(--white);
+	text-decoration: none;
+}
+.my-cars .card-footer a:hover{
+	color: var(--lightgray);
+	text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Portfolio*/
+.portfolio{
+	margin: 4em 0;
+    position: relative;	
+}
+.portfolio h1{
+	color:#F97300;
+	margin: 2em;	
+}
+.portfolio img{
+	 height: 15rem;
+	 width: 100%;
+	 margin: 1em;
+
+	
+
+}
+
+
+
+@media and (max-width: 768px){
+ .team .item img{
+ 	width: 100%;
+ }	
+}
+.team{
+	margin: 4em 0;
+	position: relative;
+
+}
+.team h1{
+	color:#F97300;
+	margin: 2em;	
+}
+.team .item{
+	position: relative;
+	overflow: hidden;	
+}
+.team .des{
+	background: #F97300;
+	color: #fff;
+	text-align: center;
+	border-top-right-radius: 93%;
+	transition:.3s ease-in-out;
+	position: absolute;
+	width: 88%;
+	bottom: 24px;
+
+
+}
+.team .item:hover .des{
+	height: 100%;
+	background:#f973007d;
+    position: absolute;
+	width: 89%;
+	padding: 5em;
+	top: 0;
+	border-top-right-radius: 0;
+}
+.contact-form{
+	margin: 6em 0;
+	position: relative;		
+}
+
 .contact-form h1{
 	padding:2em 1px;
 	color: #F97300; 
