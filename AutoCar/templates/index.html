@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Hey Guys, this is the flask setup</title>
-    </head>
-    <body>
-        <h1>Hey Guys, this is the flask setup</h1>
-        <p>This is an example of a simple HTML page with one paragraph on the index page.</p>
-    </body>
-</html>
+{% extends "site_template.html" %}
+{% block page_title %} Home {% endblock %}
+
+{% block page_content %}
+    {{ super() }}
+
+    <!-- Start Header Section -->
+	<header class="header">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="description">
+				<h1><strong>a new way to (not) drive</strong></h1>
+				<p>AutoCar offers an accessible and safe self-driving car experience. Join in for an experience like none
+					other!</p>
+				<a href="/login"><button class="btn btn-outline-secondary btn-lg">Join us</button></a>
+			</div>
+		</div>
+
+	</header>
+
+	<!-- about section -->
+	<div class="about" id="about">
+		<div class="container">
+			<h1 class="text-center">About <strong>Auto</strong>Car</h1>
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<img src="static/images/headerback.jpg" class="img-fluid">
+				</div>
+				<div class="col-lg-8 col-md-8 col-sm-12 desc">
+
+					<h3>a new way to (not) drive!</h3>
+					<!-- TODO write instructions on usage -->
+					<p>
+						ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+{% endblock %}
