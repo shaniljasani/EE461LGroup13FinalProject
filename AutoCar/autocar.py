@@ -1,8 +1,9 @@
 # EE461L Group 13
 # Final Project
 
-# Notes
+# TODO
 # Trailing slash fix https://stackoverflow.com/questions/40365390/trailing-slash-in-flask-route
+# access control
 
 import os
 
@@ -22,6 +23,13 @@ def index():
 @app.route('/dashboard')
 def dashboard():
     return render_template("dashboard.html")
+
+# TODO add login logic to this page
+@app.route('/login')
+def login():
+    return render_template("login.html")
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost")
