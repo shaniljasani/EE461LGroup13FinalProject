@@ -173,6 +173,43 @@ body{
 	text-decoration: underline;
 }
 
+/* Available Cars Section */
+
+@media screen and (max-width: 768px){
+	.available-cars .item img{
+		width: 100%;
+	}	
+}
+.available-cars{
+	margin: 4em 0;
+	position: relative;
+
+}
+.available-cars h1{
+	color: var(--black);
+	margin: 2em;	
+}
+.available-cars .item{
+	position: relative;
+	overflow: hidden;	
+}
+.available-cars .des{
+	background: var(--orange);
+	color: #fff;
+	text-align: center;
+	transition:.5s ease-in-out;
+	position: absolute;
+	width: 88%;
+	bottom: 0px;
+}
+.available-cars .item:hover .des{
+	height: 100%;
+	background: var(--orange);
+	position: absolute;
+	width: 88%;
+	padding: 5em;
+	top: 0;
+}
 
 
 
@@ -213,45 +250,9 @@ body{
 
 
 
-@media and (max-width: 768px){
- .team .item img{
- 	width: 100%;
- }	
-}
-.team{
-	margin: 4em 0;
-	position: relative;
-
-}
-.team h1{
-	color:#F97300;
-	margin: 2em;	
-}
-.team .item{
-	position: relative;
-	overflow: hidden;	
-}
-.team .des{
-	background: #F97300;
-	color: #fff;
-	text-align: center;
-	border-top-right-radius: 93%;
-	transition:.3s ease-in-out;
-	position: absolute;
-	width: 88%;
-	bottom: 24px;
 
 
-}
-.team .item:hover .des{
-	height: 100%;
-	background:#f973007d;
-    position: absolute;
-	width: 89%;
-	padding: 5em;
-	top: 0;
-	border-top-right-radius: 0;
-}
+
 .contact-form{
 	margin: 6em 0;
 	position: relative;		
