@@ -1,8 +1,9 @@
 # EE461L Group 13
 # Final Project
 
-# Notes
+# TODO
 # Trailing slash fix https://stackoverflow.com/questions/40365390/trailing-slash-in-flask-route
+# access control
 
 import os
 
@@ -18,6 +19,17 @@ app.secret_key = os.getenv("APP_SECRET") # secret key used for cookies in the fu
 @app.route('/')
 def index():
     return render_template("index.html")
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template("dashboard.html")
+
+# TODO add login logic to this page
+@app.route('/login')
+def login():
+    return render_template("login.html")
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost")
