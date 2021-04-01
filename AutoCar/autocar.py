@@ -10,6 +10,7 @@ import os
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from auth.auth import auth_bp
+from reserve.car import car_bp
 
 # import config env file
 load_dotenv(dotenv_path="./.env")
@@ -18,6 +19,7 @@ app = Flask(__name__, static_url_path="/static")
 app.secret_key = os.getenv("APP_SECRET") # secret key used for cookies in the future
 app.secret_key = 'secret key'
 app.register_blueprint(auth_bp)
+app.register_blueprint(car_bp)
 
 @app.route('/')
 def index():
@@ -26,15 +28,6 @@ def index():
 @app.route('/dashboard')
 def dashboard():
     return render_template("dashboard.html")
-
-# TODO add login logic to this page
-# @app.route('/login')
-# def login():
-#     return render_template("login.html")
-
-# @app.route('/register')
-# def register():
-#     return render_template("login.html")
 
 
 

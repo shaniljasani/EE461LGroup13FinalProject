@@ -4,15 +4,28 @@ from flask import (Blueprint, flash, g, redirect, render_template, request, sess
 
 auth_bp = Blueprint('auth_bp', __name__)
 
-#registration
+#used for registering a user
+@auth_bp.route('/signup', methods=('GET', 'POST'))
+def signup():
+    if request.method == 'POST':
+        email = request.form['inputEmail']
+        password = request.form['inputPassword']
+        #TODO
+        #encrypt password some how?
+        #if user already exists error or redirect to forgotten password
+        if(True):
+            return redirect(url_for('auth_bp.login'))
+        
+        #flash error message
+    return render_template('signup.html')
 
-
-
+#used for logging in a user
 @auth_bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
         email = request.form['inputEmail']
         password = request.form['inputPassword']
+        #TODO
         #encrypt password some how?
         #search db
         #if User is None: incorect email
@@ -25,6 +38,7 @@ def login():
         #flash error message
     return render_template('login.html')
 
+#used to logout a user [clears cookies]
 @auth_bp.route('/logout')
 def logout():
     session.clear()
