@@ -7,11 +7,12 @@ car_bp = Blueprint('car_bp', __name__)
 #reserve this car confirmation
 @car_bp.route('/reserve', methods=('GET', 'POST'))
 def reserve():
-    viewed_car = request.args.get('car')
     if request.method == 'POST':
-        return redirect(url_for('index'))
+        #TODO: add checked out car to user
         
-        #flash error message
+        return redirect(url_for('index'))
+    
+    viewed_car = request.args.get('car')
     return render_template('car_reserve.html', car=viewed_car)
 
 

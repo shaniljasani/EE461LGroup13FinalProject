@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html>
-<body>
+{% extends "site_template.html" %}
+{% block page_title %} Login {% endblock %}
+
+{% block page_content %}
+{{ super() }}
 
 <h1>Car Reserve</h1>
-<p>This is the car</p>
+<p>This is the car:</p>
 <p>{{car}}</p>
-<button class="btn btn-lg btn-primary btn-block" type="submit">Checkout</button>
+<form method="post">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Checkout</button>
+</form>
 
-</body>
-</html>
+{% endblock %}
