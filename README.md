@@ -42,3 +42,18 @@ pip install -r requirements.txt
 ```
 python autocar.py
 ```
+
+## Attributions
+
+### Team Members
+
+- [@shaniljasani](https://github.com/shaniljasani)
+- [@aimichang](https://github.com/aimichang)
+- [@julianfritz](https://github.com/JulianFritz)
+- [@maddisikorski](https://github.com/maddisikorski)
+- [@reto0](https://github.com/Reto0)
+
+### Resources Used 
+
+- [Bootstrap Landing Page](https://www.freecodecamp.org/news/learn-bootstrap-4-in-30-minute-by-building-a-landing-page-website-guide-for-beginners-f64e03833f33/)
+- [Photo by Unsplash](https://unsplash.com/@introspectivedsgn?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
