@@ -8,9 +8,10 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, render_template
+from flask import Flask, render_template, g
 from auth.auth import auth_bp
 from reserve.car import car_bp
+from database.managedb import ManageDB
 
 # import config env file
 load_dotenv(dotenv_path="./.env")
