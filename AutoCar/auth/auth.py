@@ -22,7 +22,7 @@ def signup():
             db.add_user_to_collection(email, password)
             return redirect(url_for('auth_bp.login'))            
         
-        #flash error message
+        #TODO flash error message
     return render_template('signup.html')
 
 #used for logging in a user
@@ -58,5 +58,5 @@ def login():
 @auth_bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('/'))
+    return redirect(url_for('index'))
         
