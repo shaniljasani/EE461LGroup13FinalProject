@@ -15,6 +15,8 @@ def signup():
         #TODO
         #encrypt password some how?
         hash_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+        #should the email be hashed as well?
+        #what about other sensitive information like payment method?
 
         db = get_db()
         error = None
