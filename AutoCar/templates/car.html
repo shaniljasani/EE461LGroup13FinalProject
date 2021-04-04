@@ -1,0 +1,57 @@
+{% extends "site_template.html" %}
+{% block page_title %} Dashboard {% endblock %}
+
+{% block page_content %}
+{{ super() }}
+
+<!-- Car Info section -->
+<div>
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5"> Toyota Rav4 </h1>
+        <div class="row">
+
+            <div class="col-lg-8 col-md-8">
+                <div class="mb-5">
+                    <img src="static/images/cars/rav4.jpg" class="img-fluid">
+                </div>
+                <div class="mb-5">
+                    <h2>Description</h2>
+                    <p>The Toyota RAV4 is a compact crossover SUV (sport utility vehicle) produced by Toyota.</p>
+                </div>
+                
+
+            </div>
+
+            <div class="col-lg-4 col-md-4 project-info text-center">
+                <div class="row project-info-card">
+                    <!-- TODO Add Logic for rent now vs view rental status -->
+                    <h3>Rental Information</h3>
+                        <!-- TODO Add Logic here -->
+                        <p>Status: Available / Open / Reserved</p>
+                        <!-- TODO Make this a dynamic url -->
+                        <a href="/rent/rav4" class="btn btn-dark btn-lg mb-3">Rent Now!</a>
+                    <br/>
+                    <br/>
+
+                    
+                    <!-- Else -->
+                    <div class="row">
+                        <h4>Current Renters</h4>
+                        <p>
+                            <!-- TODO Add Logic here -->
+                            <span><a href="/profile/shanil" class="project-info-users"> Shanil </a></span>
+                            <span>&nbsp; | &nbsp;</span>
+                            <span><a href="/profile/renzo" class="project-info-users"> Renzo </a></span>
+                        </p>
+                        
+                        <!-- Note for shanil: add rest of DB things here -->
+                    </div>
+                </div>
+                
+                
+
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}

@@ -24,6 +24,11 @@ def index():
 def dashboard():
     return render_template("dashboard.html")
 
+# @app.route('/car/<car_id>')
+@app.route('/car')
+def car():
+    return render_template("car.html")
+
 # TODO add login logic to this page
 @app.route('/login')
 def login():
