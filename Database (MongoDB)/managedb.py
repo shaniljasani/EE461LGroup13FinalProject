@@ -59,7 +59,9 @@ class ManageDB:
                 # push to user collection
                 self.users.update_one(id, history)
 
-    # need to add entries in each collection
+    def get_all_users(self):
+        return self.users.find({})
+
     def add_user_to_collection(self, usernm, password):
         # make sure this is a new username
         if self.find_user(usernm) is None:
@@ -77,11 +79,33 @@ class ManageDB:
             # push to car collection
             self.cars.update_one(id, status)
 
+    def set_all_cars_to_available(self):
+        allCars = self.get_all_cars()
+        for car in allCars:
+            if car['checked_out'] is True:
+                self.flip_car_status(car['carID'])
+
+    def get_all_available_cars(self):
+        availableCars = []
+        allCars = self.get_all_cars()
+        for car in allCars:
+            if car['checked_out'] is False:
+                availableCars.append(car)
+        return availableCars
+
+    def get_all_cars(self):
+        return self.cars.find({})
+
     def add_car_to_collection(self, carID, mk, md, yr):
         # make sure this is a new car
         if self.find_car(carID) is None:
             newCar = cardb.new_car_post(carID, mk, md, yr)
             self.cars.insert_one(newCar)
+
+    def add_multiple_cars_to_collection(self, cars):
+        # go through all the incoming cars
+        for car in cars:
+            self.add_car_to_collection(car['carID'], car['make'], car['model'], car['year'])
 
     # ==== CARSHARES ====
     def edit_carshare_price(self, carshareID, price):
@@ -119,6 +143,9 @@ class ManageDB:
                 id, newCars = carsharedb.add_to_carshare_cars(carshareID, carshareCars)
                 # push to carshare collection
                 self.carshares.update_one(id, newCars)
+
+    def get_all_carshares(self):
+        return self.carshares.find({})
 
     def add_carshare_to_collection(self, carshareID, users, cars, price, checkedIn):
         # make sure this is a new carshare
