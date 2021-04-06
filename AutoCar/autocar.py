@@ -34,6 +34,10 @@ def car():
 def login():
     return render_template("login.html")
 
+# TODO get rid of this
+@app.route('/signup')
+def signup():
+    return render_template("signup.html")
 
 
 if __name__ == "__main__":
