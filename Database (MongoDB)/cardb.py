@@ -7,7 +7,7 @@ def new_car_post(carID, mk, md, yr):
             "make": mk,
             "model": md,
             "year": yr,
-            "checked_out": True}
+            "checked_out": False}
     return post
 
 
