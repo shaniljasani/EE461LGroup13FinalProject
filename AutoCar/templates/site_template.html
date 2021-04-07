@@ -34,16 +34,26 @@
 				</li>
 				<!-- TODO Add LOGIC for LOGGED OUT -->
 				<li class="nav-item">
-					<a class="nav-link" href="/login">Login</a>
+                    {% if not session['email'] %}
+					    <a class="nav-link" href="/login">Login</a>
+                    {% endif %}
+				</li>
+                <li class="nav-item">
+                    {% if not session['email'] %}
+					    <a class="nav-link" href="/signup">Sign Up</a>
+                    {% endif %}
 				</li>
 			</ul>
 			<!-- TODO Add LOGIC for LOGGED IN -->
-			<span class="nav-item text-white">
-				Logged in as: @shaniljasani
-			</span>
-			<span class="nav-item">
-				<a class="nav-link" href="/logout">Logout</a>
-			</span>
+            {% if session['email'] %}
+                <span class="nav-item text-white">
+                    Logged in as: 
+                    {{session['email']}}
+                </span>
+                <span class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                </span>
+            {% endif %}
 		</div>
 	</nav>
 
