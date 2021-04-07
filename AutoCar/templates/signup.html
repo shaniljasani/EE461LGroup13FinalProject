@@ -4,19 +4,30 @@
 {% block page_content %}
 {{ super() }}
 
-<div class="login-container container">
-    <div class="login-card text-center">
-        <form class="form-signin text-center" method="post">
-            <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
-            <!-- needs a spacer?-->
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-            
-        </form>
+<div style="height: 150px;"></div>
+<div class="login-container container" style="height: 500px;">
+
+    <div class="row">
+        <div class="col-lg-3 col-md-2"></div>
+        <div class="col-lg-6 col-md-8 project-info text-center">
+            <div class="row project-info-card">
+                <form class="form-signin text-center">
+                    <h1 class="h3 mb-3 font-weight-normal">AutoCar Sign Up</h1>
+                    <label for="inputEmail" class="sr-only">Email Address</label>
+                    <input type="email" id="inputEmail" class="form-control" placeholder="user@autocar.com" required
+                        autofocus>
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="password" required>
+                    <div class="mb-4"></div>
+                    <button class="btn btn-lg btn-dark btn-block" type="submit">Sign Up</button>
+                </form>
+
+
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-2"></div>
     </div>
 
+</div>
 
-    {% endblock %}
+{% endblock %} 

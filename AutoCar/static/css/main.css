@@ -225,11 +225,28 @@ body{
 	margin: 10px 10px 10px 10px;
 }
 
+/* Project info on car page */
+/* .project-info {
+	background-color: var(--orange);
+	color: var(--orange);
+} */
 
+.project-info-card {
+	background-color: var(--burntorange);
+	color: var(--white);
+	border-radius: 25px;
+	padding: 20px;
+	margin: 15px;
+}
 
+.project-info-img {
+	margin: 10px 10px 10px 10px;
+}
 
-
-
+.project-info-users {
+	text-decoration: none; 
+	color: black;
+}
 
 
 
