@@ -1,0 +1,15 @@
+{% extends "site_template.html" %}
+{% block page_title %} Login {% endblock %}
+
+{% block page_content %}
+{{ super() }}
+
+<h1>New Carshare</h1>
+<form class="form-signin text-center" method="post"
+    <label for="inputID" class="sr-only">Carshare ID:</label>
+    <input type="id" id="inputID" name="inputID" class="form-control" placeholder="carshareID" required
+    autofocus>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Checkout</button>
+</form>
+
+{% endblock %}

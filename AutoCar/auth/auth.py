@@ -10,9 +10,11 @@ auth_bp = Blueprint('auth_bp', __name__)
 @auth_bp.route('/signup', methods=('GET', 'POST'))
 def signup():
     if request.method == 'POST':
-        email = request.form['inputEmail']
-        password = request.form['inputPassword']
-        #TODO
+        username = request.form.get('inputUsername')
+        email = request.form.get('inputEmail')
+        password = request.form.get('inputPassword')
+        #TODO 
+        #user email in db
         #encrypt password some how?
         # hash_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
         #should the email be hashed as well?
@@ -21,10 +23,12 @@ def signup():
         db = get_db()
         error = None
         #if user already exists error or redirect to forgot my password
-        if(db.find_user(email) != None):
+        if(db.find_user(username) != None):
+            error = "User already exists with that username"
+        elif(db.find_user(email) != None):
             error = "User already exists with that email"
         else:
-            db.add_user_to_collection(email, password)
+            db.add_user_to_collection(username, password)
             return redirect(url_for('auth_bp.login'))            
         
         #TODO flash error message
@@ -35,23 +39,24 @@ def signup():
 def login():
     
     if request.method == 'POST':
-        email = request.form['inputEmail']
-        password = request.form['inputPassword']
+        username = request.form.get('inputUsername')
+        password = request.form.get('inputPassword')
         #TODO
         #encrypt password some how?
         db = get_db()
         error = None
-        #if username/email isnt in database
-        if(db.find_user(email) == None):
+        #if username isnt in database
+        if(db.find_user(username) == None):
             error = "User not found"
             
         #if password isnt password in db incorrect: incorrect password
         # elif not bcrypt.checkpw(password.encode(), db.find_user(email).get('password')):
         #     error = "Incorrect Password"
-
+        elif not db.find_user(username).get('password') == password:
+            error = "Incorrect Password"
         #if no error 
         if(error == None):
-            session['email'] = email
+            session['username'] = username
             return redirect(url_for('dashboard'))
         
 

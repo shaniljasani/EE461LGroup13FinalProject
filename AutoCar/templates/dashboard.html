@@ -5,70 +5,32 @@
     {{ super() }}
 
 <!-- My Cars section -->
+<!-- Available Cars
+    TODO CHANGE CLASS NAME -->
 <div class="my-cars" id="my-cars">
     <div class="container">
-        <h1 class="text-center mt-5 mb-5">My Cars</h1>
+        <h1 class="text-center mt-5 mb-5">Available Cars</h1>
         <div class="row">
 
-            <!-- TODO For Loop for(c in available_cars) -->
+            {% for car in available_cars %}
             <div class="col-md-4 col-lg-4 col-sm-12">
                 <div class="card">
-                    <!-- TODO Dynamic Car Image -->
                     <div class="card-img">
-                        <img src="static/images/cars/rav4.jpg" class="img-fluid">
+                        <img src="{{"static/images/cars/"+car.get('make').replace(" ","")+car.get('model').replace(" ","")+car.get('year')+"/0.jpg"}}"" class="img-fluid">
                     </div>
                     <div class="card-body">
-                        <!-- TODO Dynamic Car Name -->
-                        <h4 class="card-title">Toyota Rav4</h4>
+                        <h4 class="card-title">{{car.get('make') + " " + car.get('model') + " " + car.get('year')}}</h4>
                         <!-- TODO Dynamic Car Description -->
                         <p class="card-text">
                             Seats 5. Perfect for your next road trip in the city or out!
                         </p>
                     </div>
                     <div class="card-footer">
-                        <!-- TODO Dynamic Reservation Link -->
-                        <a href="/reserve?car=rav4" class="card-link">Reserve Now</a>
+                        <a href="{{"/car?car="+car.get("carID")}}"" class="card-link">Reserve Now</a>
                     </div>
                 </div>
             </div>
-            <!-- TODO end loop -->
-
-            <div class="col-md-4 col-lg-4 col-sm-12">
-                <div class="card">
-                    <div class="card-img">
-                        <img src="static/images/cars/rav4.jpg" class="img-fluid">
-                    </div>
-
-                    <div class="card-body">
-                        <h4 class="card-title">Toyota Rav4</h4>
-                        <p class="card-text">
-                            Seats 5. Perfect for your next road trip in the city or out!
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="/reserve/rav4" class="card-link">Reserve Now</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-md-4 col-lg-4 col-sm-12">
-                <div class="card">
-                    <div class="card-img">
-                        <img src="static/images/cars/rav4.jpg" class="img-fluid">
-                    </div>
-
-                    <div class="card-body">
-                        <h4 class="card-title">Toyota Rav4</h4>
-                        <p class="card-text">
-                            Seats 5. Perfect for your next road trip in the city or out!
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="/reserve/rav4" class="card-link">Reserve Now</a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
     </div>
@@ -77,45 +39,30 @@
 
 
 
-<!-- Available Cars Section -->
+<!-- My Carshares
+    #TODO CHANGE CLASS NAME Section -->
+{% if session['username'] %}
 <div class="available-cars" id="available-cars">
 	<div class="container">
-	   <h1 class="text-center">Available Cars</h1>
-		<div class="row">
-
-            <!-- TODO for each available car -->
-			<div class="col-lg-3 col-md-3 col-sm-12 item">
-                <!-- TODO Dynamic Image -->
-                <img src="static/images/cars/rav4.jpg" class="img-fluid" alt="available-cars">
-				<!-- TODO Dynamic Description -->
-                <div class="des">
-				 	Toyota Rav4
-				 </div>
-			</div>
-            <!-- TODO endfor -->
-
-
-			<div class="col-lg-3 col-md-3 col-sm-12 item">
-				<img src="static/images/cars/rav4.jpg" class="img-fluid" alt="available-cars">
-				<div class="des">
-				 	Toyota Rav4
-				 </div>
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-12 item">
-				<img src="static/images/cars/rav4.jpg" class="img-fluid" alt="available-cars">
-				<div class="des">
-				 	Toyota Rav4
-				 </div>
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-12 item">
-				<img src="static/images/cars/rav4.jpg" class="img-fluid" alt="available-cars">
-				<div class="des">
-				 	Toyota Rav4
-				 </div>
-			</div>
-			
-		</div>
+            {% if carshares %}
+            <h1 class="text-center">My Carshares</h1>
+            {% endif %}
+            <div class="row">
+                {% for carshare in carshares %}
+                <!-- TODO for each available car -->
+                <div class="col-lg-3 col-md-3 col-sm-12 item">
+                    <!-- TODO Dynamic Image -->
+                    <img src="static/images/cars/rav4.jpg" class="img-fluid" alt="available-cars">
+                    <!-- TODO View Carshare through hyperlink -->
+                    <div class="des">
+                        {{carshare}}
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+        
 	</div>
 </div>
-
+{% endif %}
 {% endblock %}
