@@ -8,10 +8,10 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, session
 from auth.auth import auth_bp
 from reserve.car import car_bp
-from database.managedb import ManageDB
+from database.managedb import ManageDB, get_db
 
 # import config env file
 load_dotenv(dotenv_path="./.env")
@@ -29,7 +29,10 @@ def index():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template("dashboard.html")
+    db = get_db()
+    if(session.get('username')):
+        return render_template("dashboard.html", carshares=db.find_user(session.get('username')).get('history'), available_cars = db.get_all_available_cars())
+    return render_template("dashboard.html", available_cars = db.get_all_available_cars())
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost")

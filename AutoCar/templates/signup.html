@@ -11,13 +11,14 @@
         <div class="col-lg-3 col-md-2"></div>
         <div class="col-lg-6 col-md-8 project-info text-center">
             <div class="row project-info-card">
-                <form class="form-signin text-center">
+                <form class="form-signin text-center" method="post">
                     <h1 class="h3 mb-3 font-weight-normal">AutoCar Sign Up</h1>
+                    <label for="inputUsername" class="sr-only">Username</label>
+                    <input type="username" id="inputUsername" name="inputUsername" class="form-control" placeholder="username" required autofocus>
                     <label for="inputEmail" class="sr-only">Email Address</label>
-                    <input type="email" id="inputEmail" class="form-control" placeholder="user@autocar.com" required
-                        autofocus>
+                    <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="user@autocar.com" required autofocus>
                     <label for="inputPassword" class="sr-only">Password</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="password" required>
+                    <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="password" required>
                     <div class="mb-4"></div>
                     <button class="btn btn-lg btn-dark btn-block" type="submit">Sign Up</button>
                 </form>

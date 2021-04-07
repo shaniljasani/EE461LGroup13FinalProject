@@ -7,12 +7,12 @@
 <!-- Car Info section -->
 <div>
     <div class="container">
-        <h1 class="text-center mt-5 mb-5"> Toyota Rav4 </h1>
+        <h1 class="text-center mt-5 mb-5"> {{car.get("make") + " " + car.get("model")}} </h1>
         <div class="row">
 
             <div class="col-lg-8 col-md-8">
                 <div class="mb-5">
-                    <img src="static/images/cars/rav4.jpg" class="img-fluid">
+                    <img src="{{"static/images/cars/"+car.get('make').replace(" ","")+car.get('model').replace(" ","")+car.get('year')+"/0.jpg"}}"" class="img-fluid">
                 </div>
                 <div class="mb-5">
                     <h2>Specifications</h2>
@@ -21,22 +21,21 @@
                         <tbody>
                             <tr>
                                 <td scope="row"><strong>Year</strong></td>
-                                <!-- TODO Dynamic -->
-                                <td>2019</td>
+                                <td>{{car.get("year")}}</td>
                             </tr>
                             <tr>
                                 <td scope="row"><strong>Make</strong></td>
                                 <!-- TODO Dynamic -->
-                                <td>Toyota</td>
+                                <td>{{car.get("make")}}</td>
                             </tr>
                             <tr>
                                 <td scope="row"><strong>Model</strong></td>
                                 <!-- TODO Dynamic -->
-                                <td>Rav4</td>
+                                <td>{{car.get("model")}}</td>
                             </tr>
                         </tbody>
                     </table>
-
+                    <!-- #TODO cars need descriptions -->
                     <p>The Toyota RAV4 is a compact crossover SUV (sport utility vehicle) produced by Toyota.</p>
                 </div>
 
@@ -47,28 +46,24 @@
                 <div class="row project-info-card">
                     <!-- TODO Add Logic for rent now vs view rental status -->
                     <h3>Rental Information</h3>
-                    <!-- TODO Add Logic here if needed -->
-                    <!-- <p>Status: Available / Open / Reserved</p> -->
-                    <!-- TODO Make this a dynamic url -->
-                    <a href="/rent/rav4" class="btn btn-dark btn-lg mb-3">Rent Now!</a>
-                    <br />
-                    <br />
-
+                    <p>Status: {{"Available" if not car.get('checked_out') else "Checked Out"}}</p>
 
                     <!-- Else -->
+                    {% if session['username'] %}
                     <div class="row">
-                        <h4>Current Renters</h4>
+                        <!-- <h4>Current Renters</h4>
                         <p>
-                            <!-- TODO Add Logic here -->
-                            <span><a href="/profile/shanil" class="project-info-users"> Shanil </a></span>
+                            TODO Add Logic here -->
+                            <!-- <span><a href="/profile?user=shanil" class="project-info-users"> Shanil </a></span>
                             <span>&nbsp; | &nbsp;</span>
-                            <span><a href="/profile/renzo" class="project-info-users"> Renzo </a></span>
-                        </p>
-                        <a href="/rent/rav4" class="btn btn-dark btn-sm mb-3">Join Rental</a>
-                        <a href="/rent/rav4" class="btn btn-dark btn-sm mb-3">Leave Rental</a>
+                            <span><a href="/profile?user=renzo" class="project-info-users"> Renzo </a></span>
+                        </p> -->
+                        <a href="{{"/addcar?car=" + car.get('carID')}}" class="btn btn-dark btn-sm mb-3">Add to Existing Carshare</a>
+                        <a href="{{"/newcs?car=" + car.get('carID')}}" class="btn btn-dark btn-sm mb-3">Add to new Carshare</a>
 
                         <!-- Note for shanil: add rest of DB things here -->
                     </div>
+                    {% endif %}
                 </div>
 
 

@@ -1,0 +1,18 @@
+{% extends "site_template.html" %}
+{% block page_title %} Login {% endblock %}
+
+{% block page_content %}
+{{ super() }}
+
+<h1>New Carshare</h1>
+<form class="form-signin text-center" method="post">
+    <select id="carshare_chosen">
+        {% for carshare in carshares %}
+            <option value="{{carshare}}">{{carshare}}</option>
+        {% endfor %}
+    </select>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Add car</button>
+</form>
+
+{% endblock %}

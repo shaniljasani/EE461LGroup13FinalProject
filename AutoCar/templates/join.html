@@ -1,0 +1,16 @@
+{% extends "site_template.html" %}
+{% block page_title %} Login {% endblock %}
+
+{% block page_content %}
+{{ super() }}
+
+<h1>Group Join</h1>
+<p>This is the car:</p>
+<p>{{car}}</p>
+
+<form method="post">
+    <input type="id" name="groupID" id="groupID" class="form-control" placeholder="Group ID" required autofocus>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Join</button>
+</form>
+
+{% endblock %}
