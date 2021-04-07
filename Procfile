@@ -1,1 +1,1 @@
-web: gunicorn autocar.py
+web: gunicorn autocar:app
