@@ -1,0 +1,12 @@
+{% extends "site_template.html" %}
+{% block page_title %} Login {% endblock %}
+
+{% block page_content %}
+{{ super() }}
+
+<h1>Cars in this carshare</h1>
+{% for car in cars %}
+    <p>{{car.get('make') + " " + car.get('model') + " " + car.get('year')}}</p>>
+{% endfor %}
+
+{% endblock %}

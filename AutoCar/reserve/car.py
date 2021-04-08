@@ -37,6 +37,7 @@ def join():
             #TODO error that user already in group
             return render_template('join.html')
         db.add_user_to_carshare(groupID, session.get('username'))
+        db.edit_user_history(session.get('username'), groupID)
     return render_template('join.html')
 
 
@@ -62,11 +63,13 @@ def newcs():
             #TODO send message car just got checked out 
             return redirect(url_for('dashboard'))
         #check out the car
-        db.flip_car_status(car.get('carID'))
+        
         #creates new carshare
-        # string for new carshare id
         g_id = request.form.get('inputID')
-
+        #if already taken do nothin TODO prompt error message
+        if(db.find_carshare(g_id) != None):
+            return render_template('new_carshare.html')
+        db.flip_car_status(car.get('carID'))
         price = 0 #TODO software selection with price
         db.add_carshare_to_collection(g_id, [session.get('username')], [car.get('carID')], price, date.today().strftime("%b-%d-%Y"))
         db.edit_user_history(session.get('username'), g_id)
@@ -93,10 +96,11 @@ def addcar():
         if(car.get('checked_out')):
             #TODO send message car just got checked out 
             return redirect(url_for('dashboard'))
+        
+        #TODO update carshare price
         #check out the car
         db.flip_car_status(car.get('carID'))
-        #TODO update carshare price
-        db.add_car_to_carshare(request.form.get('carshare_chosen'), car.get('car_ID'))
+        db.add_car_to_carshare(request.form.get('carshare_chosen'), car.get('carID'))
 
         return redirect(url_for('dashboard'))
 
@@ -104,3 +108,23 @@ def addcar():
 
     #TODO a check to see if carshare is completed or not [should not list these]
     return render_template('addcar.html', carshares=db.find_user(session.get('username')).get('history'))
+
+
+#view carshare
+@car_bp.route('/carshare')
+def carshare():
+    if(not session.get('username')):
+        return redirect(url_for('auth_bp.login'))
+    db = get_db()
+    if db.find_carshare(request.args.get('id')) == None:
+        return redirect(url_for('dashboard'))
+    if session.get('username') not in db.find_carshare(request.args.get('id')).get('users'):
+        return redirect(url_for('dashboard'))
+    
+    cars_list = db.find_carshare(request.args.get('id')).get('cars')
+    cars = []
+    for car in cars_list:
+        c = db.find_car(car)
+        if(c != None):
+            cars.append(c)
+    return render_template('carshare.html', cars=cars)
