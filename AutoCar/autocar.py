@@ -7,7 +7,6 @@
 
 import os
 
-from dotenv import load_dotenv
 from flask import Flask, render_template, g, session, send_file
 from auth.auth import auth_bp
 from reserve.car import car_bp
@@ -15,8 +14,6 @@ from database.managedb import ManageDB, get_db
 #TODO add pandas to requirements for installing
 import pandas as pd
 
-# import config env file
-load_dotenv(dotenv_path="./.env")
 
 app = Flask(__name__, static_url_path="/static")
 app.secret_key = os.getenv("APP_SECRET") # secret key used for cookies in the future
