@@ -8,10 +8,12 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, render_template, g, session
+from flask import Flask, render_template, g, session, send_file
 from auth.auth import auth_bp
 from reserve.car import car_bp
 from database.managedb import ManageDB, get_db
+#TODO add pandas to requirements for installing
+import pandas as pd
 
 # import config env file
 load_dotenv(dotenv_path="./.env")
@@ -33,6 +35,29 @@ def dashboard():
     if(session.get('username')):
         return render_template("dashboard.html", carshares=db.find_user(session.get('username')).get('history'), available_cars = db.get_all_available_cars())
     return render_template("dashboard.html", available_cars = db.get_all_available_cars())
+
+@app.route('/downloads')
+def file_downloads():
+    try:
+        return render_template('downloads.html')
+    except Exception as e:
+        return e
+
+@app.route('/return-cardata')
+def return_files():
+    db = get_db()
+    #TODO figure out how to get car data from Mongo as a csv that can be sent using send_file
+    #this most likely doesn't work since I can't test it
+    collection = db.get_cars_collection()
+    cursor = collection.find() # returns every item in the collection
+    mongoItems = list(cursor)
+    df = pd.DataFrame(mongoItems)
+    df.to_csv('cars.csv')
+
+    try:
+        return send_file('cars.csv', as_attachment=True, attachment_filename='cardata.csv')
+    except Exception as e:
+        return e
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost")
