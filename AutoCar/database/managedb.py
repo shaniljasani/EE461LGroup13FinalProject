@@ -100,6 +100,15 @@ class ManageDB:
                 availableCars.append(car)
         return availableCars
 
+    # will set car status checked_out to false
+    def checkin_car(self, carID):
+        car = self.find_car(carID)
+        if car is not None:
+            # change checked_out to false
+            id, post = cardb.change_car_status(carID, False)
+            # push to carshare collection
+            self.cars.update_one(id, post)
+
     def get_all_cars(self):
         return self.cars.find({})
 
@@ -125,12 +134,17 @@ class ManageDB:
             # push to carshare collection
             self.carshares.update_one(id, newPrice)
 
+    # checkin carshare and all the cars in it as well
     def checkin_carshare(self, carshareID, checkedIn):
         carshare = self.find_carshare(carshareID)
         if carshare is not None:
-            id, newCheckin = carsharedb.edit_carshare_price(carshareID, checkedIn)
-            # push to carshare collection
-            self.carshares.update_one(id, newCheckin)
+            if carshare['date_checked_in'] is None:
+                carList = carshare['cars']
+                for car in carList:
+                    self.checkin_car(car)
+                id, newCheckin = carsharedb.checkin_carshare(carshareID, checkedIn)
+                # push to carshare collection
+                self.carshares.update_one(id, newCheckin)
 
     def add_user_to_carshare(self, carshareID, usernm):
         carshare = self.find_carshare(carshareID)
@@ -143,13 +157,41 @@ class ManageDB:
                 # push to carshare collection
                 self.carshares.update_one(id, newUsers)
 
+    def remove_user_from_carshare(self, carshareID, usernm):
+        carshare = self.find_carshare(carshareID)
+        if carshare and self.find_user(usernm) is not None:
+            carshareUsers = carshare['users']
+            # remove user from carshare
+            if usernm in carshareUsers:
+                carshareUsers.remove(usernm)
+                id, newUsers = carsharedb.add_to_carshare_users(carshareID, carshareUsers)
+                # push to carshare collection
+                self.carshares.update_one(id, newUsers)
+
     def add_car_to_carshare(self, carshareID, carID):
         carshare = self.find_carshare(carshareID)
-        if carshare and self.find_car(carID) is not None:
+        car = self.find_car(carID)
+        if carshare and car is not None:
             carshareCars = carshare['cars']
             # add new car
             if carID not in carshareCars:
                 carshareCars.append(carID)
+                id, newCars = carsharedb.add_to_carshare_cars(carshareID, carshareCars)
+                # push to carshare collection
+                self.carshares.update_one(id, newCars)
+
+    # removes a car and calls checkin_car()
+    def remove_car_from_carshare(self, carshareID, carID):
+        carshare = self.find_carshare(carshareID)
+        car = self.find_car(carID)
+        if carshare is not None:
+            carshareCars = carshare['cars']
+            # remove the car from carshare
+            if carID in carshareCars:
+                carshareCars.remove(carID)
+                # in case car doesn't exist
+                if car is not None:
+                    self.checkin_car(carID)
                 id, newCars = carsharedb.add_to_carshare_cars(carshareID, carshareCars)
                 # push to carshare collection
                 self.carshares.update_one(id, newCars)
