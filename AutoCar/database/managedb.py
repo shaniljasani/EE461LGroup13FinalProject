@@ -125,12 +125,12 @@ class ManageDB:
             # push to carshare collection
             self.carshares.update_one(id, newPrice)
 
-    def checkout_carshare(self, carshareID, checkedOut):
+    def checkin_carshare(self, carshareID, checkedIn):
         carshare = self.find_carshare(carshareID)
         if carshare is not None:
-            id, newCheckout = carsharedb.edit_carshare_price(carshareID, checkedOut)
+            id, newCheckin = carsharedb.edit_carshare_price(carshareID, checkedIn)
             # push to carshare collection
-            self.carshares.update_one(id, newCheckout)
+            self.carshares.update_one(id, newCheckin)
 
     def add_user_to_carshare(self, carshareID, usernm):
         carshare = self.find_carshare(carshareID)
