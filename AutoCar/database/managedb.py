@@ -69,6 +69,7 @@ class ManageDB:
             self.users.insert_one(newUser)
 
     # ==== CARS ====
+    # updates car with carID's description
     def edit_car_description(self, carID, newDescrip):
         car = self.find_car(carID)
         if car is not None:
@@ -76,6 +77,7 @@ class ManageDB:
             id, descrip = cardb.update_car_description(carID, newDescrip)
             self.cars.update_one(id, descrip)
 
+    # changes a car's checked out status. returns nothing
     def flip_car_status(self, carID):
         car = self.find_car(carID)
         if car is not None:
@@ -92,6 +94,7 @@ class ManageDB:
             if car['checked_out'] is True:
                 self.flip_car_status(car['carID'])
 
+    # returns a list of all available cars
     def get_all_available_cars(self):
         availableCars = []
         allCars = self.get_all_cars()

@@ -1,7 +1,7 @@
 # need: function that formats into a post properly
 # users (list), cars (list), price, duration (date checked out and checked in)
 
-# create a carshare post and define the fields that is has
+# create a carshare post for the db and define the fields that is has
 def new_carshare_post(carshareID, users, cars, price, checkedOut):
     post = {"carshareID": carshareID,
             "users": users,
