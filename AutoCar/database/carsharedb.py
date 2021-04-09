@@ -2,13 +2,13 @@
 # users (list), cars (list), price, duration (date checked out and checked in)
 
 
-def new_carshare_post(carshareID, users, cars, price, checkedIn):
+def new_carshare_post(carshareID, users, cars, price, checkedOut):
     post = {"carshareID": carshareID,
             "users": users,
             "cars": cars,
             "price": price,
-            "date_checked_in": checkedIn,
-            "date_checked_out": None}
+            "date_checked_out": checkedOut,
+            "date_checked_in": None}
     return post
 
 
@@ -42,11 +42,11 @@ def edit_carshare_price(carshareID, newPrice):
     return post
 
 
-def checkout_carshare(carshareID, checkedOut):
+def checkin_carshare(carshareID, checkedIn):
     post = ({"carshareID": carshareID},
             {
                 "$set": {
-                    "date_checked_out": checkedOut
+                    "date_checked_in": checkedIn
                 },
             })
     return post
