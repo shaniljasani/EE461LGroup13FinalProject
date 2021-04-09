@@ -1,4 +1,4 @@
-**URL to our deployed application: **http://autocar.pythonanywhere.com/
+**URL to our deployed application:** http://autocar.pythonanywhere.com/
 
 **User manual:**
 
