@@ -13,13 +13,13 @@ Database: Amy
 Cloud: Madilyn
 
 Items to be accomplished during phase 3:
--Carshare history
--More page asthetics
--Billing system
--Error notification when incorrect login
--Edge case testing
--Encryption
--Animations
+1. Carshare history
+2. More page asthetics
+3. Billing system
+4. Error notification when incorrect login
+5. Edge case testing
+6. Encryption
+7. Animations
 
 Issues ran into during setup for cloud:
 Originally, we had planned on using Google Cloud for the setup of deployment of the application. After using Heroku during lab, we decided to switch over to that. However, during Heroku deployment, our Heroku had issues connecting based on the branches found in the github repository. After much research into different cloud deployments, we ultimately decided to use PythonAnywhere to deploy our application. Ultimately, PythonAnywhere was very useful because during deployment, we are able to check the server and error logs if some systems are not working. Also we were able to set up a virtual environement to deploy MongoDB and other requirements and dependencies needed during the application.
