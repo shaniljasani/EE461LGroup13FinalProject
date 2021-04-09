@@ -118,7 +118,7 @@ def addcar():
 
 
 #view carshare
-@car_bp.route('/carshare')
+@car_bp.route('/carshare', methods=('GET', 'POST'))
 def carshare():
     if(not session.get('username')):
         return redirect(url_for('auth_bp.login'))
@@ -137,11 +137,19 @@ def carshare():
             cars.append(c)
 
     # TODO add functionality for the check-in button
-    #if request.method == 'POST':
+    # if request.method == 'POST':
     #    for car in cars_list:
     #        if request.args.get('id') == car:
     #            db.flip_car_status(car.get('carID'))
     #            db.checkin_carshare(carshare, car.get('carID'))
+    if request.method == 'POST':
+        for car in cars:
+            if request.form.get('ID') == car.get('carID'):
+                #TODO check in car
+                rend = render_template('car.html', car=db.find_car(car.get('carID')))
+                db.close()
+                return rend
+        
 
     # db.flip_car_status(car.get('carID'))
     # db.checkin_carshare(db.find_carshare(request.args.get('d')), car.get('carID'))
