@@ -1,7 +1,7 @@
 import functools
 #creates a blueprint named auth
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
-from database.managedb import ManageDB, get_db
+from database.managedb import ManageDB
 from datetime import date
 
 car_bp = Blueprint('car_bp', __name__)
@@ -13,12 +13,14 @@ def car():
             return redirect(url_for('auth_bp.login'))
 
     car=request.args.get('car')
-    db = get_db()
+    db = ManageDB()
     if(db.find_car(car) == None):
             #some error (shouldnt ever reach here)
         return redirect(url_for('dashboard'))
     
-    return render_template('car.html', car=db.find_car(car))
+    rend = render_template('car.html', car=db.find_car(car))
+    db.close()
+    return rend
 
 
 #car join {join a project based on some id}
@@ -27,7 +29,7 @@ def join():
     if(not session.get('username')):
         return redirect(url_for('auth_bp.login'))
     if request.method == 'POST':
-        db = get_db()
+        db = ManageDB()
         groupID = request.form.get('groupID')
         if(db.find_carshare(groupID) == None):
             #TODO prompt error if no car found
@@ -38,6 +40,7 @@ def join():
             return render_template('join.html')
         db.add_user_to_carshare(groupID, session.get('username'))
         db.edit_user_history(session.get('username'), groupID)
+        db.close()
     return render_template('join.html')
 
 
@@ -46,7 +49,7 @@ def join():
 def newcs():
     if(not session.get('username')):
         return redirect(url_for('auth_bp.login'))
-    db = get_db()
+    db = ManageDB()
 
     #if car checkedout
     if db.find_car(request.args.get('car')) == None:
@@ -76,6 +79,8 @@ def newcs():
         
         #possibly redirect to another page other than the home page or a summary page
         return redirect(url_for('index'))
+
+    db.close()
     return render_template('new_carshare.html')
 
 #add to new carshare
@@ -83,7 +88,7 @@ def newcs():
 def addcar():
     if(not session.get('username')):
         return redirect(url_for('auth_bp.login'))
-    db = get_db()
+    db = ManageDB()
     #if car checkedout
     if db.find_car(request.args.get('car')) == None:
         #TODO car not found error
@@ -107,7 +112,9 @@ def addcar():
 
 
     #TODO a check to see if carshare is completed or not [should not list these]
-    return render_template('addcar.html', carshares=db.find_user(session.get('username')).get('history'))
+    rend = render_template('addcar.html', carshares=db.find_user(session.get('username')).get('history'))
+    db.close()
+    return rend
 
 
 #view carshare
@@ -115,7 +122,7 @@ def addcar():
 def carshare():
     if(not session.get('username')):
         return redirect(url_for('auth_bp.login'))
-    db = get_db()
+    db = ManageDB()
     if db.find_carshare(request.args.get('id')) == None:
         return redirect(url_for('dashboard'))
     if session.get('username') not in db.find_carshare(request.args.get('id')).get('users'):
@@ -127,4 +134,5 @@ def carshare():
         c = db.find_car(car)
         if(c != None):
             cars.append(c)
+    db.close()
     return render_template('carshare.html', cars=cars)

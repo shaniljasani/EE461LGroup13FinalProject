@@ -1,7 +1,7 @@
 import pymongo
-import userdb
-import cardb
-import carsharedb
+from database import userdb
+from database import cardb
+from database import carsharedb
 
 
 class ManageDB:

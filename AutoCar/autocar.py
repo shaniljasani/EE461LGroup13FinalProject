@@ -10,7 +10,7 @@ import os
 from flask import Flask, render_template, g, session, send_file
 from auth.auth import auth_bp
 from reserve.car import car_bp
-from database.managedb import ManageDB, get_db
+from database.managedb import ManageDB 
 #TODO add pandas to requirements for installing
 import pandas as pd
 
@@ -28,10 +28,11 @@ def index():
 
 @app.route('/dashboard')
 def dashboard():
-    db = get_db()
+    db = ManageDB()
     if(session.get('username')):
         return render_template("dashboard.html", carshares=db.find_user(session.get('username')).get('history'), available_cars = db.get_all_available_cars())
     return render_template("dashboard.html", available_cars = db.get_all_available_cars())
+    db.close()
 
 @app.route('/downloads')
 def file_downloads():
@@ -42,7 +43,7 @@ def file_downloads():
 
 @app.route('/return-cardata')
 def return_files():
-    db = get_db()
+    db = ManageDB()
     #TODO figure out how to get car data from Mongo as a csv that can be sent using send_file
     #this most likely doesn't work since I can't test it
     collection = db.get_cars_collection()
@@ -55,6 +56,8 @@ def return_files():
         return send_file('cars.csv', as_attachment=True, attachment_filename='cardata.csv')
     except Exception as e:
         return e
+
+    db.close()
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost")

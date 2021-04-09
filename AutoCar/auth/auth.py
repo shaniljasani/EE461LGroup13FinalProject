@@ -1,7 +1,7 @@
 import functools
 #creates a blueprint named auth
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
-from database.managedb import ManageDB, get_db
+from database.managedb import ManageDB
 # import bcrypt
 
 auth_bp = Blueprint('auth_bp', __name__)
@@ -20,7 +20,7 @@ def signup():
         #should the email be hashed as well?
         #what about other sensitive information like payment method?
 
-        db = get_db()
+        db = ManageDB()
         error = None
         #if user already exists error or redirect to forgot my password
         if(db.find_user(username) != None):
@@ -32,6 +32,7 @@ def signup():
             return redirect(url_for('auth_bp.login'))            
         
         #TODO flash error message
+        db.close()
     return render_template('signup.html')
 
 #used for logging in a user
@@ -43,7 +44,7 @@ def login():
         password = request.form.get('inputPassword')
         #TODO
         #encrypt password some how?
-        db = get_db()
+        db = ManageDB()
         error = None
         #if username isnt in database
         if(db.find_user(username) == None):
@@ -59,7 +60,7 @@ def login():
             session['username'] = username
             return redirect(url_for('dashboard'))
         
-
+        db.close()
         #TODO flash error message
         # flash(error)
     return render_template('login.html')
