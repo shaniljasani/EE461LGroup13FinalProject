@@ -1,7 +1,7 @@
 import pymongo
-import userdb
-import cardb
-import carsharedb
+from database import userdb
+from database import cardb
+from database import carsharedb
 
 
 class ManageDB:
@@ -145,6 +145,10 @@ class ManageDB:
                 id, newCheckin = carsharedb.checkin_carshare(carshareID, checkedIn)
                 # push to carshare collection
                 self.carshares.update_one(id, newCheckin)
+
+            id, newCheckin = carsharedb.checkin_carshare(carshareID, checkedIn)
+            # push to carshare collection
+            self.carshares.update_one(id, newCheckin)
 
     def add_user_to_carshare(self, carshareID, usernm):
         carshare = self.find_carshare(carshareID)
