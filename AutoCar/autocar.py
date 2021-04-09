@@ -50,10 +50,10 @@ def return_files():
     cursor = collection.find() # returns every item in the collection
     mongoItems = list(cursor)
     df = pd.DataFrame(mongoItems)
-    df.to_csv('cars.csv')
+    carcsv = df.to_csv(sep=',')
 
     try:
-        return send_file('cars.csv', as_attachment=True, attachment_filename='cardata.csv')
+        return send_file(carcsv)#, as_attachment=True, attachment_filename='cars.csv')
     except Exception as e:
         return e
 
