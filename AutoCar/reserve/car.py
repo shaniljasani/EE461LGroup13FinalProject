@@ -145,11 +145,16 @@ def carshare():
     if request.method == 'POST':
         for car in cars:
             if request.form.get('ID') == car.get('carID'):
-                #TODO check in car
-                rend = render_template('car.html', car=db.find_car(car.get('carID')))
-                db.close()
-                return rend
-        
+                db.remove_car_from_carshare(carshare.get('carshareID'), car.get('carID'))
+                db.checkin_car(car.get('carID'))
+        carshare = db.find_carshare(request.args.get('id'))
+        cars_list = carshare.get('cars')
+        cars = []
+        for car in cars_list:
+            c = db.find_car(car)
+            if(c != None):
+                cars.append(c)
+            
 
     # db.flip_car_status(car.get('carID'))
     # db.checkin_carshare(db.find_carshare(request.args.get('d')), car.get('carID'))
