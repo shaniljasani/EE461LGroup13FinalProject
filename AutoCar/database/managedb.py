@@ -1,19 +1,8 @@
 import pymongo
-import database.userdb
-import database.cardb
-import database.carsharedb
-from database import userdb
-from database import cardb
-from database import carsharedb
-from flask import g
-#attatched db to g or creates a new connection
-def get_db():
-        if 'db' not in g:
-            g.db = ManageDB()
-        return ManageDB()
+import userdb
+import cardb
+import carsharedb
 
-def abs_db():
-    return ManageDB()
 
 class ManageDB:
 
@@ -22,7 +11,7 @@ class ManageDB:
         client = pymongo.MongoClient(
             "mongodb+srv://amyDB:yW0lml9GAHotN5tl@teamprojectee461l.e3tgs.mongodb.net/myFirstDatabase?retryWrites"
             "=true&w=majority")
-
+        self.client = client
         # Testing Database Connection
         self.database = client.test_database
         # Production Database Connection
@@ -80,6 +69,13 @@ class ManageDB:
             self.users.insert_one(newUser)
 
     # ==== CARS ====
+    def edit_car_description(self, carID, newDescrip):
+        car = self.find_car(carID)
+        if car is not None:
+            # edit the car's description
+            id, descrip = cardb.update_car_description(carID, newDescrip)
+            self.cars.update_one(id, descrip)
+
     def flip_car_status(self, carID):
         car = self.find_car(carID)
         if car is not None:
@@ -107,16 +103,19 @@ class ManageDB:
     def get_all_cars(self):
         return self.cars.find({})
 
-    def add_car_to_collection(self, carID, mk, md, yr):
+    def add_car_to_collection(self, carID, mk, md, yr, descrip=""):
         # make sure this is a new car
         if self.find_car(carID) is None:
-            newCar = cardb.new_car_post(carID, mk, md, yr)
+            newCar = cardb.new_car_post(carID, mk, md, yr, descrip)
             self.cars.insert_one(newCar)
 
     def add_multiple_cars_to_collection(self, cars):
         # go through all the incoming cars
         for car in cars:
-            self.add_car_to_collection(car['carID'], car['make'], car['model'], car['year'])
+            if car.get('description') is not None:
+                self.add_car_to_collection(car['carID'], car['make'], car['model'], car['year'], car['description'])
+            else:
+                self.add_car_to_collection(car['carID'], car['make'], car['model'], car['year'])
 
     # ==== CARSHARES ====
     def edit_carshare_price(self, carshareID, price):
@@ -163,3 +162,6 @@ class ManageDB:
         if self.find_carshare(carshareID) is None:
             newCarshare = carsharedb.new_carshare_post(carshareID, users, cars, price, checkedIn)
             self.carshares.insert_one(newCarshare)
+
+    def close(self):
+        self.client.close()

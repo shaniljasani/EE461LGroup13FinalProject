@@ -3,3 +3,4 @@ python-dotenv
 pymongo[srv]
 gunicorn
 pandas
+requests
