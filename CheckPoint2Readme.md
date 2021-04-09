@@ -28,6 +28,7 @@ Cloud: Madilyn
 5. Edge case testing
 6. Encryption
 7. Animations
+8. Implement calendar, if time allows
 
 
 **Issues ran into during setup for cloud:**
