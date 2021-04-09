@@ -7,7 +7,7 @@
 
 import os
 
-from flask import Flask, render_template, g, session, send_file
+from flask import Flask, render_template, g, session, send_file, redirect
 from auth.auth import auth_bp
 from reserve.car import car_bp
 from database.managedb import ManageDB 
@@ -41,23 +41,30 @@ def file_downloads():
     except Exception as e:
         return e
 
-@app.route('/return-cardata')
+@app.route('/return-carmakes')
 def return_files():
     db = ManageDB()
     #TODO figure out how to get car data from Mongo as a csv that can be sent using send_file
-    #this most likely doesn't work since I can't test it
-    collection = db.get_cars_collection()
-    cursor = collection.find() # returns every item in the collection
-    mongoItems = list(cursor)
-    df = pd.DataFrame(mongoItems)
-    carcsv = df.to_csv(sep=',')
+    #collection = db.get_cars_collection()
+    #cursor = collection.find() # returns every item in the collection
+    #mongoItems = list(cursor)
+    #df = pd.DataFrame(mongoItems)
+    #carcsv = df.to_csv(sep=',')
 
-    try:
-        return send_file(carcsv)#, as_attachment=True, attachment_filename='cars.csv')
-    except Exception as e:
-        return e
+    #try:
+        #return send_file(carcsv)#, as_attachment=True, attachment_filename='cars.csv')
+    #except Exception as e:
+        #return e
+
+    # this gives the user a download file that contains a dataset of all car Makes.
+    # Not 
+    return redirect('https://vpic.nhtsa.dot.gov/api/vehicles/GetAllMakes?format=csv')
 
     db.close()
+
+@app.route('/return-teslamodels')
+def redirect_tesla_download():
+    return redirect('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/tesla?format=csv')
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost")
