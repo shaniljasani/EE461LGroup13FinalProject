@@ -39,7 +39,7 @@ for i, car in enumerate(results2019):
     post = {"carID": "x2019_"+str(i),
             "make": car['Make_Name'],
             "model": car['Model_Name'],
-            "year": 2019
+            "year": "2019"
             }
     allCarsFromDataSet.append(post)
 
@@ -47,7 +47,7 @@ for i, car in enumerate(results2020):
     post = {"carID": "y2020_"+str(i),
             "make": car['Make_Name'],
             "model": car['Model_Name'],
-            "year": 2020
+            "year": "2020"
             }
     allCarsFromDataSet.append(post)
 
@@ -55,7 +55,7 @@ for i, car in enumerate(results2021):
     post = {"carID": "z2021_"+str(i),
             "make": car['Make_Name'],
             "model": car['Model_Name'],
-            "year": 2021
+            "year": "2021"
             }
     allCarsFromDataSet.append(post)
 
