@@ -31,5 +31,4 @@ Items to be accomplished during phase 3:
 
 
 Issues ran into during setup for cloud:
-
 Originally, we had planned on using Google Cloud for the setup of deployment of the application. After using Heroku during lab, we decided to switch over to that. However, during Heroku deployment, our Heroku had issues connecting based on the branches found in the github repository. After much research into different cloud deployments, we ultimately decided to use PythonAnywhere to deploy our application. Ultimately, PythonAnywhere was very useful because during deployment, we are able to check the server and error logs if some systems are not working. Also we were able to set up a virtual environement to deploy MongoDB and other requirements and dependencies needed during the application.
