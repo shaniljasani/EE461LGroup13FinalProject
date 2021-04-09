@@ -7,10 +7,10 @@ Issues still present in the application:
 Error prompting when incorrect login entered, 
 
 Division of work on this project checkpoint:
-Backend: Julian, Renzo
-Frontend: Shanil
-Database: Amy
-Cloud: Madilyn
+-Backend: Julian, Renzo
+-Frontend: Shanil
+-Database: Amy
+-Cloud: Madilyn
 
 Items to be accomplished during phase 3:
 1. Carshare history
