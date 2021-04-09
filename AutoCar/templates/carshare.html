@@ -5,9 +5,11 @@
 {{ super() }}
 
 <h1>Cars in this carshare</h1>
+<form class="form-carshare text-center" method="post"></form>
 {% for car in cars %}
     <p>{{car.get('make') + " " + car.get('model') + " " + car.get('year')}}</p>>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Check-in</button>
+    <button class="btn btn-lg btn-primary btn-block" id=car type="submit">Check-in</button>
 {% endfor %}
+</form>
 
 {% endblock %}

@@ -128,11 +128,23 @@ def carshare():
     if session.get('username') not in db.find_carshare(request.args.get('id')).get('users'):
         return redirect(url_for('dashboard'))
     
-    cars_list = db.find_carshare(request.args.get('id')).get('cars')
+    carshare = db.find_carshare(request.args.get('id'))
+    cars_list = carshare.get('cars')
     cars = []
     for car in cars_list:
         c = db.find_car(car)
         if(c != None):
             cars.append(c)
+
+    # TODO add functionality for the check-in button
+    #if request.method == 'POST':
+    #    for car in cars_list:
+    #        if request.args.get('id') == car:
+    #            db.flip_car_status(car.get('carID'))
+    #            db.checkin_carshare(carshare, car.get('carID'))
+
+    # db.flip_car_status(car.get('carID'))
+    # db.checkin_carshare(db.find_carshare(request.args.get('d')), car.get('carID'))
+
     db.close()
     return render_template('carshare.html', cars=cars)
