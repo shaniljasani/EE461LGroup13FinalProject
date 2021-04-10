@@ -13,26 +13,29 @@ def signup():
         username = request.form.get('inputUsername')
         email = request.form.get('inputEmail')
         password = request.form.get('inputPassword')
-        #TODO 
-        #user email in db
-        #encrypt password some how?
+        #TODO for phase 3
+        # encrypt & hash password with bcrypt
+        # make sure to include bcrypt install in the requirements.txt otherwise import bcrypt won't find the module
         # hash_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-        #should the email be hashed as well?
-        #what about other sensitive information like payment method?
 
         db = ManageDB()
         error = None
-        #if user already exists error or redirect to forgot my password
+        # if user already exists, error or redirect to forgot my password
         if(db.find_user(username) != None):
             error = "User already exists with that username"
+        # if there's a user with that email
         elif(db.find_user(email) != None):
             error = "User already exists with that email"
+        #if no errors, add user to database with its passowrd
         else:
             db.add_user_to_collection(username, password)
+            #redirect to login
             return redirect(url_for('auth_bp.login'))            
         
-        #TODO flash error message
+        # close the ManageDB object so that we're not creating multiples
         db.close()
+
+        #TODO flash error message
     return render_template('signup.html')
 
 #used for logging in a user
@@ -42,22 +45,26 @@ def login():
     if request.method == 'POST':
         username = request.form.get('inputUsername')
         password = request.form.get('inputPassword')
-        #TODO
-        #encrypt password some how?
+
+        # create db object so we can access the database
         db = ManageDB()
         error = None
-        #if username isnt in database
+        # if username isnt in database
         if(db.find_user(username) == None):
             error = "User not found"
             
-        #if password isnt password in db incorrect: incorrect password
+        #TODO for phase 3: encrypt
         # elif not bcrypt.checkpw(password.encode(), db.find_user(email).get('password')):
         #     error = "Incorrect Password"
+
+        # if the user's pasword does not match, throw error
         elif not db.find_user(username).get('password') == password:
             error = "Incorrect Password"
-        #if no error 
+        # if no error 
         if(error == None):
+            # log them in by making their username the session
             session['username'] = username
+            # redirect to dashboard
             return redirect(url_for('dashboard'))
         
         db.close()
@@ -68,6 +75,8 @@ def login():
 #used to logout a user [clears cookies]
 @auth_bp.route('/logout')
 def logout():
+    # clear session
     session.clear()
+    # redirect to homepage
     return redirect(url_for('index'))
         

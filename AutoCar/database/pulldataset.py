@@ -2,6 +2,7 @@ import requests
 import managedb
 
 # dataset website: https://vpic.nhtsa.dot.gov/api/
+# pulling from this website to add car models to our mongo db
 
 # for future use, if we want to use all makes available and search by makeID
 # to create a huge database
@@ -34,6 +35,7 @@ results2021 = retJSON['Results']
 # print(results2020)
 # print(results2021)
 
+# create a list of db posts for all of the car models to add to our db
 allCarsFromDataSet = []
 for i, car in enumerate(results2019):
     post = {"carID": "x2019_"+str(i),

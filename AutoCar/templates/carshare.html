@@ -1,9 +1,11 @@
+<!-- Template for car appearing in carshare group, extended from template for site -->
 {% extends "site_template.html" %}
 {% block page_title %} Login {% endblock %}
 
 {% block page_content %}
 {{ super() }}
 
+<!-- Template for carshare group to see what cars are in it -->
 <h1>Cars in this carshare</h1>
 <form class="form-carshare text-center" method="post">
 {% for car in cars %}

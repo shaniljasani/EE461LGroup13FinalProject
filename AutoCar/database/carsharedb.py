@@ -1,7 +1,7 @@
 # need: function that formats into a post properly
 # users (list), cars (list), price, duration (date checked out and checked in)
 
-
+# create a carshare post for the db and define the fields that is has
 def new_carshare_post(carshareID, users, cars, price, checkedOut):
     post = {"carshareID": carshareID,
             "users": users,
@@ -11,7 +11,7 @@ def new_carshare_post(carshareID, users, cars, price, checkedOut):
             "date_checked_in": None}
     return post
 
-
+# add new user(s) to a carshare
 def add_to_carshare_users(carshareID, newUsers):
     post = ({"carshareID": carshareID},
             {
@@ -21,7 +21,7 @@ def add_to_carshare_users(carshareID, newUsers):
             })
     return post
 
-
+# add new car(s) to a carshare
 def add_to_carshare_cars(carshareID, newCars):
     post = ({"carshareID": carshareID},
             {
@@ -31,7 +31,7 @@ def add_to_carshare_cars(carshareID, newCars):
             })
     return post
 
-
+# change the total price of the carshare
 def edit_carshare_price(carshareID, newPrice):
     post = ({"carshareID": carshareID},
             {
@@ -41,7 +41,7 @@ def edit_carshare_price(carshareID, newPrice):
             })
     return post
 
-
+# end the carshare by checking it in
 def checkin_carshare(carshareID, checkedIn):
     post = ({"carshareID": carshareID},
             {
