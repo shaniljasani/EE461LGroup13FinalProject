@@ -2,7 +2,7 @@ import functools
 #creates a blueprint named auth
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
 from database.managedb import ManageDB
-# import bcrypt
+import bcrypt
 
 auth_bp = Blueprint('auth_bp', __name__)
 
@@ -16,7 +16,7 @@ def signup():
         #TODO for phase 3
         # encrypt & hash password with bcrypt
         # make sure to include bcrypt install in the requirements.txt otherwise import bcrypt won't find the module
-        # hash_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+        hash_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
         db = ManageDB()
         error = None
@@ -28,7 +28,7 @@ def signup():
             error = "User already exists with that email"
         #if no errors, add user to database with its passowrd
         else:
-            db.add_user_to_collection(username, password)
+            db.add_user_to_collection(username, hash_password)
             #redirect to login
             return redirect(url_for('auth_bp.login'))            
         
@@ -54,12 +54,13 @@ def login():
             error = "User not found"
             
         #TODO for phase 3: encrypt
-        # elif not bcrypt.checkpw(password.encode(), db.find_user(email).get('password')):
-        #     error = "Incorrect Password"
+        elif not bcrypt.checkpw(password.encode(), db.find_user(username).get('password')):
+             error = "Incorrect Password"
 
+        # Unencrypted version:
         # if the user's pasword does not match, throw error
-        elif not db.find_user(username).get('password') == password:
-            error = "Incorrect Password"
+        #elif not db.find_user(username).get('password') == password:
+        #    error = "Incorrect Password"
         # if no error 
         if(error == None):
             # log them in by making their username the session
