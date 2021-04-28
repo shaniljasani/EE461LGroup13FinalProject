@@ -75,6 +75,13 @@ class ManageDB:
             # edit the car's description
             id, descrip = cardb.update_car_description(carID, newDescrip)
             self.cars.update_one(id, descrip)
+            
+    def edit_car_range(self, carID, newRange):
+        car = self.find_car(carID)
+        if car is not None:
+            # edit the car's description
+            id, range = cardb.update_car_range(carID, newRange)
+            self.cars.update_one(id, range)
 
     def flip_car_status(self, carID):
         car = self.find_car(carID)
