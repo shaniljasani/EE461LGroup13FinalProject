@@ -41,7 +41,7 @@ def dashboard():
     
 # the billing page
 @app.route('/billing')
-def file_downloads():
+def billing():
     if(session.get('username')):
         return render_template('billing.html')
     return render_template("login.html")
