@@ -1,3 +1,5 @@
+<!-- Template for downloads, extended from template for site -->
+<!-- Creates buttons to download, extended from template for site -->
 {% extends "site_template.html" %}
 {% block page_title %} Downloads {% endblock %}
 
@@ -7,7 +9,9 @@
 
         <div class="col-lg-6 col-md-8 project-info text-left">
             <div class="row project-info-card">
-		        <a href="/return-cardata" target="blank"><button class="btn btn-lg btn-dark btn-block">Download Car Set</button></a>
+		        <a href="/return-carmakes" target="blank"><button class="btn btn-lg btn-dark btn-block">Download Car Makes Dataset</button></a>
+                <p></p>
+                <a href="/return-teslamodels" target="blank"><button class="btn btn-lg btn-dark btn-block">Download Tesla Models Dataset</button></a>
             </div>
         </div>
 

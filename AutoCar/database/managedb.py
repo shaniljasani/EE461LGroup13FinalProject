@@ -73,6 +73,7 @@ class ManageDB:
     # ===================== CARS =====================
     def set_car_description(self, carID, newDescrip):
         """Changes the car's description"""
+
         car = self.find_car(carID)
         # make sure this is an existing car
         if car is not None:
@@ -83,6 +84,7 @@ class ManageDB:
         allCars = self.get_all_cars()
         cardb.set_all_cars_to_available(allCars, self)
 
+    # returns a list of all available cars
     def get_all_available_cars(self):
         """Returns a list of available cars in the database"""
         availableCars = []

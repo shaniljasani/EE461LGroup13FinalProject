@@ -1,9 +1,11 @@
+<!-- This is the add car template that is plugged into the site template -->
 {% extends "site_template.html" %}
 {% block page_title %} Login {% endblock %}
 
 {% block page_content %}
 {{ super() }}
 
+<!-- carshare button -->
 <h1>Add to Carshare</h1>
 <form class="form-signin text-center" method="post">
     <select name="carshare_chosen" id="carshare_chosen">

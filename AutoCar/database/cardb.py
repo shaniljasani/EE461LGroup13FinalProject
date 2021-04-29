@@ -1,8 +1,9 @@
 # need: function that formats into a post properly
 # make, model, year, status, rate, range (mileage)
 
-
+# create a new car post for the db and define the fields that it has
 def add_new_car_to_collection(carID, mk, md, yr, rng, rate, descrip, db):
+
     post = {"carID": carID,
             "make": mk,
             "model": md,
