@@ -1,5 +1,6 @@
 import requests
 import managedb
+import random
 
 # dataset website: https://vpic.nhtsa.dot.gov/api/
 # pulling from this website to add car models to our mongo db
@@ -41,7 +42,9 @@ for i, car in enumerate(results2019):
     post = {"carID": "x2019_"+str(i),
             "make": car['Make_Name'],
             "model": car['Model_Name'],
-            "year": "2019"
+            "year": "2019",
+            "range": random.randrange(75) + 300,
+            "rate": random.randrange(30) + 30
             }
     allCarsFromDataSet.append(post)
 
@@ -49,7 +52,9 @@ for i, car in enumerate(results2020):
     post = {"carID": "y2020_"+str(i),
             "make": car['Make_Name'],
             "model": car['Model_Name'],
-            "year": "2020"
+            "year": "2020",
+            "range": random.randrange(75) + 300,
+            "rate": random.randrange(30) + 30
             }
     allCarsFromDataSet.append(post)
 
@@ -57,7 +62,9 @@ for i, car in enumerate(results2021):
     post = {"carID": "z2021_"+str(i),
             "make": car['Make_Name'],
             "model": car['Model_Name'],
-            "year": "2021"
+            "year": "2021",
+            "range": random.randrange(75) + 300,
+            "rate": random.randrange(30) + 30
             }
     allCarsFromDataSet.append(post)
 

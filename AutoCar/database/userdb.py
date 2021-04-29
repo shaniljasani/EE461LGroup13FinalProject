@@ -1,19 +1,25 @@
 # need: function that formats into a post properly
-# payment info, personal details, password, username, history (carshareid list)
+# password, username, history (carshareid list)
 
-# create a new user for the db and define the fields that it has
-def new_user_post(usernm, password):
+
+def add_new_user_to_collection(usernm, password, db):
     post = {"username": usernm,
             "password": password,
             "history": []}
-    return post
+    db.users.insert_one(post)
 
-# add something to that user's history
-def add_to_user_history(usernm, newHistory):
-    post = ({"username": usernm},
-            {
-                "$set": {
-                    "history": newHistory
-                },
-            })
-    return post
+
+def edit_user_history(usernm, newCarshareID, user, db):
+    userhist = user['history']
+    # add newCarshareID to userhist
+    if newCarshareID not in userhist:
+        userhist.append(newCarshareID)
+        # split the tuple that is returned
+        id, history = ({"username": usernm},
+                       {
+                            "$set": {
+                                "history": userhist
+                            },
+                       })
+        # push to user collection
+        db.users.update_one(id, history)
