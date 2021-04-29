@@ -2,7 +2,6 @@
 # Final Project
 
 # TODO
-# Trailing slash fix https://stackoverflow.com/questions/40365390/trailing-slash-in-flask-route
 # access control
 
 import os
@@ -16,10 +15,20 @@ import pandas as pd
 
 
 app = Flask(__name__, static_url_path="/static")
+app.url_map.strict_slashes = False
 app.secret_key = os.getenv("APP_SECRET") # secret key used for cookies in the future
 app.secret_key = 'secret key' # for now use just 'secret key'
 app.register_blueprint(auth_bp) 
 app.register_blueprint(car_bp)
+
+# redirect on trainling slashes
+@app.before_request
+def clear_trailing():
+    from flask import redirect, request
+
+    rp = request.path 
+    if rp != '/' and rp.endswith('/'):
+        return redirect(rp[:-1])
 
 # the home/main page
 @app.route('/')
