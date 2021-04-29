@@ -38,6 +38,13 @@ def dashboard():
     return render_template("dashboard.html", available_cars = db.get_all_available_cars())
     # close the db so we don't make copies
     db.close()
+    
+# the billing page
+@app.route('/billing')
+def file_downloads():
+    if(session.get('username')):
+        return render_template('billing.html')
+    return render_template("login.html")
 
 # the dataset downloads page
 @app.route('/downloads')
