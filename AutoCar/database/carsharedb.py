@@ -1,6 +1,5 @@
 # need: function that formats into a post properly
 # users (list), current_cars (list), all_cars (list), duration (list) <-- corresponds to all_cars
-import managedb
 
 
 def add_carshare_to_collection(carshareID, users, cars, db):
