@@ -50,10 +50,8 @@ def join():
         if(session.get('username') in db.find_carshare(groupID)['users']):
             #TODO error that user already in group
             return render_template('join.html')
-        # else if no errors, add the user to that carshare
+        # else if no errors, add the user to that carshare and add that to the user's history
         db.add_user_to_carshare(groupID, session.get('username'))
-        # add that to the user's history
-        db.edit_user_history(session.get('username'), groupID)
         # close the database so we don't make copies
         db.close()
     return render_template('join.html')
@@ -96,11 +94,10 @@ def newcs():
             return render_template('new_carshare.html')
         # change the car's status to checked out
         db.flip_car_status(car.get('carID'))
-        price = 0 #TODO software selection with price
         # add the car to the carshare
-        db.add_carshare_to_collection(g_id, [session.get('username')], [car.get('carID')], price, date.today().strftime("%b-%d-%Y"))
+        db.add_carshare_to_collection(g_id, [session.get('username')], [car.get('carID')])
         # add this to the user's transacation history
-        db.edit_user_history(session.get('username'), g_id)
+        db.add_carshare_to_user_history(session.get('username'), g_id)
         
         #TODO possibly redirect to another page other than the home page, like a summary page
         return redirect(url_for('index'))
@@ -135,9 +132,7 @@ def addcar():
             return redirect(url_for('dashboard'))
         
         #TODO update carshare price
-        # change the car's status to checked out
-        db.flip_car_status(car.get('carID'))
-        # add the car to the carshare group
+        # change the car's status to checked out # add the car to the carshare group        
         db.add_car_to_carshare(request.form.get('carshare_chosen'), car.get('carID'))
 
         return redirect(url_for('dashboard'))
@@ -180,10 +175,8 @@ def carshare():
     if request.method == 'POST':
         for car in cars:
             if request.form.get('ID') == car.get('carID'):
-                # remove the car from the carshare
+                # remove the car from the carshare & tell the database that the car is checked in
                 db.remove_car_from_carshare(carshare.get('carshareID'), car.get('carID'))
-                # tell the database that the car is checked in
-                db.checkin_car(car.get('carID'))
 
         # update the carshare now that we've removed a car from it
         carshare = db.find_carshare(request.args.get('id'))
