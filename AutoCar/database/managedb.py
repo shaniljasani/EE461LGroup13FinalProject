@@ -131,6 +131,12 @@ class ManageDB:
             else:
                 self.add_car_to_collection(car['carID'], car['make'], car['model'], car['year'], car['range'], car['rate'])
 
+    def get_car_rate(self, carID):
+        """Gets the cars rate"""
+        car = self.find_car(carID)
+        # make sure this is an existing car
+        if car is not None:
+            return car['rate']
     # ===================== CARSHARES =====================
     def close_carshare(self, carshareID):
         """Closes a carshare and checks in all of the current cars"""
@@ -206,6 +212,12 @@ class ManageDB:
         # make sure this is a new carshare
         if self.find_carshare(carshareID) is None:
             carsharedb.add_carshare_to_collection(carshareID, users, cars, self)
+
+    def get_car_duration_and_rates(self, carshareID, carID):
+        """returns how long a specific car in carshare has been checked out and their rate"""
+        if self.find_carshare(carshareID) is not None:
+            return carsharedb.calc_days(carID, carshareID), self.get_car_rate
+
 
     def close(self):
         """Close the database connection"""
