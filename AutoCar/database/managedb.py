@@ -68,7 +68,7 @@ class ManageDB:
         """Adds a new user to the database User collection"""
         # make sure this is a new username
         if self.find_user(usernm) is None:
-            userdb.add_new_user_to_collection(usernm, password, self.get_curr_utc(), self)
+            userdb.add_new_user_to_collection(usernm, password, get_curr_utc(), self)
 
     # ===================== CARS =====================
     def set_car_description(self, carID, newDescrip):
@@ -139,7 +139,7 @@ class ManageDB:
         if carshare is not None:
             # make sure that carshare is active, otherwise do nothing
             if carshare['active'] is True:
-                carsharedb.close_carshare(carshare, self)
+                carsharedb.close_carshare(carshare, get_curr_utc(),  self)
 
     def get_all_carshares(self):
         """Returns a list of all carshares in the database"""
@@ -172,7 +172,7 @@ class ManageDB:
         carshare = self.find_carshare(carshareID)
         # make sure this is an existing car
         if car and carshare is not None:
-            carsharedb.get_duration_utc(carshare, car)
+            carsharedb.get_duration_utc(carshare, car, get_curr_utc())
 
     def add_user_to_carshare(self, carshareID, usernm):
         """Add a user to a carshare and add carshare to user's history"""
@@ -189,7 +189,7 @@ class ManageDB:
         car = self.find_car(carID)
         # make sure this is an existing car and carshare
         if carshare and car is not None:
-            carsharedb.add_car_to_carshare(carshare, car, self.get_curr_utc(), self)
+            carsharedb.add_car_to_carshare(carshare, car, get_curr_utc(), self)
             self.checkout_car(car, carshareID)
 
     def remove_car_from_carshare(self, carshareID, carID):
@@ -198,7 +198,7 @@ class ManageDB:
         car = self.find_car(carID)
         # make sure this is an existing car and carshare
         if carshare and car is not None:
-            if carsharedb.remove_car_from_carshare(carshare, car, self) is True:
+            if carsharedb.remove_car_from_carshare(carshare, car, get_curr_utc(), self) is True:
                 self.checkin_car(carID)
 
     def add_carshare_to_collection(self, carshareID, users, cars):
