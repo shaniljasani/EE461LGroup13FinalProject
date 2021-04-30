@@ -22,7 +22,7 @@ app.secret_key = 'secret key' # for now use just 'secret key'
 app.register_blueprint(auth_bp) 
 app.register_blueprint(car_bp)
 app.register_blueprint(downloads_bp)
-
+session.pop('username')
 # redirect on trainling slashes
 @app.before_request
 def clear_trailing():

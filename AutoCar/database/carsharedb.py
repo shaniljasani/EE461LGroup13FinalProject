@@ -1,6 +1,6 @@
 # need: function that formats into a post properly
 # users (list), current_cars (list), all_cars (list), duration (list) <-- corresponds to all_cars
-
+from datetime import datetime
 
 def add_carshare_to_collection(carshareID, users, cars, time, db):
     init_duration = []
@@ -112,3 +112,7 @@ def find_car_index(carID, all_cars):
             return i
     return -1
 
+def bill_carshare(carshare, db):
+    allCars = carshare['all_cars']
+    for car in allCars:
+        carNdx = find_car_index(car, carshare['all_cars'])

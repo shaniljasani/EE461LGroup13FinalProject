@@ -68,7 +68,7 @@ class ManageDB:
         """Adds a new user to the database User collection"""
         # make sure this is a new username
         if self.find_user(usernm) is None:
-            userdb.add_new_user_to_collection(usernm, password, get_curr_utc(), self)
+            userdb.add_new_user_to_collection(usernm, password, self)
 
     # ===================== CARS =====================
     def set_car_description(self, carID, newDescrip):
