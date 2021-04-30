@@ -2,6 +2,7 @@
 
 [Phase1 Project Plan](https://docs.google.com/document/d/1rApgJsrwuO0qmSJnTGVC2pQvfeLYDfRq002YYi_eLzU/edit?usp=sharing)
 
+[Final Presentation Slide Deck](https://docs.google.com/presentation/d/1juz9XHWT76aRvAsTMsBal4QT3Y7X225O_kpOCYwyoOI/edit#slide=id.gd162f5957b_0_236)
 
 
 
