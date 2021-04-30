@@ -9,7 +9,7 @@ import os
 from flask import Flask, render_template, g, session, send_file, redirect
 from auth.auth import auth_bp
 from reserve.car import car_bp
-from downloads.downloads import downloads_bp
+from download.download import downloads_bp
 from database.managedb import ManageDB 
 #TODO add pandas to requirements for installing
 import pandas as pd

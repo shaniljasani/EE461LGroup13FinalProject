@@ -54,8 +54,17 @@ def login():
             error = "User not found"
             
         #TODO for phase 3: encrypt
-        elif not bcrypt.checkpw(password.encode(), db.find_user(username).get('password')):
-             error = "Incorrect Password"
+        else:
+            try:
+                hashed_pw = db.find_user(username).get('password')
+                #print(type(hashed_pw))
+                if not bcrypt.checkpw(password.encode(), hashed_pw):
+                    error = "Incorrect Password"
+            except TypeError as e:
+                # I get this error: TypeError: Unicode-objects must be encoded before checking
+                # when I try to login with an older previously created account
+                # update: figured out that it's because older accounts were created before adding bcrypt, so those logins won't work
+                error = "Account was created before password encryption was added"
 
         # Unencrypted version:
         # if the user's pasword does not match, throw error
