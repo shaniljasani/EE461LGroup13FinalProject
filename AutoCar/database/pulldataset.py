@@ -15,60 +15,120 @@ finalResults = retJSON['Results']
 # for entry in finalResults:
 #     print(entry)
 
-# pulling only TESLA (441) makes from 2019 and later
-getTesla2019URL = "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/441/modelyear/2019?format=json"
-ret = requests.get(getTesla2019URL)
-retJSON = ret.json()
-results2019 = retJSON['Results']
-
-getTesla2020URL = "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/441/modelyear/2020?format=json"
-ret = requests.get(getTesla2020URL)
-retJSON = ret.json()
-results2020 = retJSON['Results']
-
+# pulling TESLA (441) makes from 2021
 getTesla2021URL = "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/441/modelyear/2021?format=json"
 ret = requests.get(getTesla2021URL)
 retJSON = ret.json()
-results2021 = retJSON['Results']
+retTesla2021 = retJSON['Results']
 
-# debugging
-# print(results2019)
-# print(results2020)
-# print(results2021)
+# pulling LEXUS (515) makes from 2021
+getLexus2021URL = "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/515/modelyear/2021?format=json"
+ret = requests.get(getLexus2021URL)
+retJSON = ret.json()
+retLexus2021 = retJSON['Results']
+
+# pulling AUDI (582) makes from 2021
+getAudi2021URL = "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/582/modelyear/2021?format=json"
+ret = requests.get(getAudi2021URL)
+retJSON = ret.json()
+retAudi2021 = retJSON['Results']
+
+# pulling MERCEDES (449) makes from 2021
+getMer2021URL = "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/449/modelyear/2021?format=json"
+ret = requests.get(getMer2021URL)
+retJSON = ret.json()
+retMer2021 = retJSON['Results']
+
+# pulling BMW (452) makes from 2021
+getBMW2021URL = "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/452/modelyear/2021?format=json"
+ret = requests.get(getBMW2021URL)
+retJSON = ret.json()
+retBMW2021 = retJSON['Results']
+
+# pulling Porsche (584) makes from 2021
+getPor2021URL = "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/584/modelyear/2021?format=json"
+ret = requests.get(getPor2021URL)
+retJSON = ret.json()
+retPor2021 = retJSON['Results']
+
+# print(retBMW2021)
+# print(retMer2021)
+# print(retPor2021)
+# print(retAudi2021)
+# print(retLexus2021)
+# print(retTesla2021)
 
 # create a list of db posts for all of the car models to add to our db
 allCarsFromDataSet = []
-for i, car in enumerate(results2019):
-    post = {"carID": "x2019_"+str(i),
-            "make": car['Make_Name'],
-            "model": car['Model_Name'],
-            "year": "2019",
-            "range": random.randrange(75) + 300,
-            "rate": random.randrange(30) + 30
-            }
-    allCarsFromDataSet.append(post)
+for i, car in enumerate(retTesla2021):
+    if car['Model_Name'] == 'Model 3':
+        post = {"carID": "z2021_"+str(i),
+                "make": car['Make_Name'],
+                "model": car['Model_Name'],
+                "year": "2021",
+                "range": random.randrange(75) + 300,
+                "rate": random.randrange(30) + 30
+                }
+        allCarsFromDataSet.append(post)
 
-for i, car in enumerate(results2020):
-    post = {"carID": "y2020_"+str(i),
-            "make": car['Make_Name'],
-            "model": car['Model_Name'],
-            "year": "2020",
-            "range": random.randrange(75) + 300,
-            "rate": random.randrange(30) + 30
-            }
-    allCarsFromDataSet.append(post)
+for i, car in enumerate(retLexus2021):
+    if car['Model_Name'] == 'LS':
+        post = {"carID": "z2021_"+str(i),
+                "make": car['Make_Name'],
+                "model": car['Model_Name'],
+                "year": "2021",
+                "range": random.randrange(75) + 300,
+                "rate": random.randrange(30) + 10
+                }
+        allCarsFromDataSet.append(post)
 
-for i, car in enumerate(results2021):
-    post = {"carID": "z2021_"+str(i),
-            "make": car['Make_Name'],
-            "model": car['Model_Name'],
-            "year": "2021",
-            "range": random.randrange(75) + 300,
-            "rate": random.randrange(30) + 30
-            }
-    allCarsFromDataSet.append(post)
+for i, car in enumerate(retAudi2021):
+    if car['Model_Name'] == 'A8':
+        post = {"carID": "z2021_"+str(i),
+                "make": car['Make_Name'],
+                "model": car['Model_Name'],
+                "year": "2021",
+                "range": random.randrange(75) + 300,
+                "rate": random.randrange(30) + 10
+                }
+        allCarsFromDataSet.append(post)
 
-# push to database
+for i, car in enumerate(retMer2021):
+    if car['Model_Name'] == 'S-Class':
+        post = {"carID": "z2021_"+str(i),
+                "make": car['Make_Name'],
+                "model": car['Model_Name'],
+                "year": "2021",
+                "range": random.randrange(75) + 300,
+                "rate": random.randrange(30) + 10
+                }
+        allCarsFromDataSet.append(post)
+
+for i, car in enumerate(retBMW2021):
+    if car['Model_Name'] == 'X1' or car['Model_Name'] == 'X2' or car['Model_Name'] == 'Z4':
+        post = {"carID": "z2021_"+str(i),
+                "make": car['Make_Name'],
+                "model": car['Model_Name'],
+                "year": "2021",
+                "range": random.randrange(75) + 300,
+                "rate": random.randrange(30) + 10
+                }
+        allCarsFromDataSet.append(post)
+
+for i, car in enumerate(retPor2021):
+    if car['Model_Name'] == 'Taycan' or car['Model_Name'] == 'Macan':
+        post = {"carID": "z2021_"+str(i),
+                "make": car['Make_Name'],
+                "model": car['Model_Name'],
+                "year": "2021",
+                "range": random.randrange(75) + 300,
+                "rate": random.randrange(30) + 10
+                }
+        allCarsFromDataSet.append(post)
+
+print(allCarsFromDataSet)
+
+# # push to database
 db = managedb.ManageDB()
 db.add_multiple_cars_to_collection(allCarsFromDataSet)
 db.close()
