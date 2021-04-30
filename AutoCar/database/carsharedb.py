@@ -2,10 +2,10 @@
 # users (list), current_cars (list), all_cars (list), duration (list) <-- corresponds to all_cars
 
 
-def add_carshare_to_collection(carshareID, users, cars, db):
+def add_carshare_to_collection(carshareID, users, cars, time, db):
     init_duration = []
     for car in cars:
-        init_duration.append({"begin": managedb.get_curr_utc(), "end": None})
+        init_duration.append({"begin": time, "end": None})
     post = {"carshareID": carshareID,
             "users": users,
             "curr_cars": cars,
@@ -30,7 +30,7 @@ def add_user_to_carshare(carshare, usernm, db):
         db.carshares.update_one(id, newUsers)
 
 
-def add_car_to_carshare(carshare, car, db):
+def add_car_to_carshare(carshare, car, time, db):
     currCars = carshare['curr_cars']
     allCars = carshare['all_cars']
     duration = carshare['duration']
@@ -38,7 +38,7 @@ def add_car_to_carshare(carshare, car, db):
     if car['carID'] not in allCars:
         currCars.append(car['carID'])
         allCars.append(car['carID'])
-        duration.append({"begin": managedb.get_curr_utc(), "end": None})
+        duration.append({"begin": time, "end": None})
         id, newCars = ({"carshareID": carshare['carshareID']},
                        {
                            "$set": {
@@ -51,14 +51,14 @@ def add_car_to_carshare(carshare, car, db):
         db.carshares.update_one(id, newCars)
 
 
-def remove_car_from_carshare(carshare, car, db):
+def remove_car_from_carshare(carshare, car, time, db):
     currCars = carshare['curr_cars']
     carNdx = find_car_index(car['carID'], carshare['all_cars'])
     duration = carshare['duration']
     # remove the car from carshare
     if car['carID'] in currCars:
         currCars.remove(car['carID'])
-        duration[carNdx]['end'] = managedb.get_curr_utc()
+        duration[carNdx]['end'] = time
         id, newCars = ({"carshareID": carshare['carshareID']},
                        {
                            "$set": {
@@ -72,24 +72,24 @@ def remove_car_from_carshare(carshare, car, db):
     return False
 
 
-def get_duration_utc(carshare, car):
+def get_duration_utc(carshare, car, time):
     carNdx = find_car_index(car['carID'], carshare['all_cars'])
     if carNdx == -1:
         return
     if car['checked_out'] is True:
-        return managedb.get_curr_utc() - carshare['duration'][carNdx]['begin']
+        return time - carshare['duration'][carNdx]['begin']
     else:
         return carshare['duration'][carNdx]['end'] - carshare['duration'][carNdx]['begin']
 
 
-def close_carshare(carshare, db):
+def close_carshare(carshare, time, db):
     currCars = carshare['curr_cars']
     for car in currCars:
         # find index of car in all_cars --> update duration
         carNdx = find_car_index(car, carshare['all_cars'])
         if carNdx == -1:
             return
-        carshare['duration'][carNdx]['end'] = managedb.get_curr_utc()
+        carshare['duration'][carNdx]['end'] = time
         # checkin car
         db.checkin_car(car)
     # make currCars empty -- carshare is closing
