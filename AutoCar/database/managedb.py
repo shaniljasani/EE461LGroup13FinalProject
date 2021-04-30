@@ -25,7 +25,8 @@ class ManageDB:
         # private attributes
         self.users = self.database.Users
         self.cars = self.database.Cars
-        self.carshares = self.database.Carshares
+        self.carshares = self.database.CarShares
+        # self.carshares = self.database.Carshares
 
     # accessor functions for ManageDB private attributes
 
