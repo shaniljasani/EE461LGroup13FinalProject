@@ -93,7 +93,6 @@ def newcs():
         if(db.find_carshare(g_id) != None):
             return render_template('new_carshare.html')
         # change the car's status to checked out
-        db.flip_car_status(car.get('carID'))
         # add the car to the carshare
         db.add_carshare_to_collection(g_id, [session.get('username')], [car.get('carID')])
         # add this to the user's transacation history
