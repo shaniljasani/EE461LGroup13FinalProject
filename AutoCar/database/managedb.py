@@ -196,7 +196,7 @@ class ManageDB:
         # make sure this is an existing car and carshare
         if carshare and car is not None:
             carsharedb.add_car_to_carshare(carshare, car, get_curr_utc(), self)
-            self.checkout_car(car, carshareID)
+            self.checkout_car(carID, carshareID)
 
     def remove_car_from_carshare(self, carshareID, carID):
         """Remove a car from carshare and set car['checked_out'] = False, inits end duration"""
@@ -207,11 +207,14 @@ class ManageDB:
             if carsharedb.remove_car_from_carshare(carshare, car, get_curr_utc(), self) is True:
                 self.checkin_car(carID)
 
-    def add_carshare_to_collection(self, carshareID, users, cars):
+    def add_carshare_to_collection(self, carshareID, users, carIDs):
         """Adds a new carshare to database Carshare Collection"""
         # make sure this is a new carshare
+    
         if self.find_carshare(carshareID) is None:
-            carsharedb.add_carshare_to_collection(carshareID, users, cars, get_curr_utc(), self)
+            carsharedb.add_carshare_to_collection(carshareID, users, carIDs, get_curr_utc(), self)
+            for carID in carIDs:
+                self.checkout_car(carID, carshareID)
 
     def get_car_duration_and_rates(self, carshareID, carID):
         """returns how long a specific car in carshare has been checked out and their rate"""

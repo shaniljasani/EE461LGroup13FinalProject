@@ -54,6 +54,7 @@ def join():
         db.add_user_to_carshare(groupID, session.get('username'))
         # close the database so we don't make copies
         db.close()
+        return redirect(url_for('dashboard'))
     return render_template('join.html')
 
 
