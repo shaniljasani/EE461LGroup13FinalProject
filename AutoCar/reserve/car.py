@@ -85,6 +85,7 @@ def newcs():
         if(car.get('checked_out')):
             #TODO send message car just got checked out 
             return redirect(url_for('dashboard'))
+
         #check out the car
         
         #creates new carshare
@@ -162,8 +163,9 @@ def carshare():
     # get the carshare from the database
     carshare = db.find_carshare(request.args.get('id'))
     # list of cars that are in that carshare
-    cars_list = carshare.get('cars')
+    cars_list = carshare.get('all_cars')
     cars = []
+    av_cars = []
     # make a list of the cars retrieved from the db
     for car in cars_list:
         c = db.find_car(car)
@@ -179,13 +181,24 @@ def carshare():
 
         # update the carshare now that we've removed a car from it
         carshare = db.find_carshare(request.args.get('id'))
-        cars_list = carshare.get('cars')
+        cars_list = carshare.get('all_cars')
         cars = []
         for car in cars_list:
             c = db.find_car(car)
             if(c != None):
                 cars.append(c)
+        cars_list = carshare.get('curr_cars')
+        for car in cars_list:
+            c = db.find_car(car)
+            if(c != None):
+                av_cars.append(c)
+
+    cars_list = carshare.get('curr_cars')
+    for car in cars_list:
+        c = db.find_car(car)
+        if(c != None):
+            av_cars.append(c)
             
     # close the database so we don't make copies
     db.close()
-    return render_template('carshare.html', cars=cars)
+    return render_template('carshare.html', cars=cars, av_cars=av_cars)

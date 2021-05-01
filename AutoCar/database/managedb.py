@@ -6,7 +6,7 @@ from database import carsharedb
 
 
 def get_curr_utc():
-    return datetime.utcnow()
+    return datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")
 
 
 class ManageDB:
@@ -26,7 +26,6 @@ class ManageDB:
         self.users = self.database.Users
         self.cars = self.database.Cars
         self.carshares = self.database.CarShares
-        # self.carshares = self.database.Carshares
 
     # accessor functions for ManageDB private attributes
 
