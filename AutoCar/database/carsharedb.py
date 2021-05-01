@@ -57,7 +57,7 @@ def remove_car_from_carshare(carshare, car, time, db):
     duration = carshare['duration']
     # remove the car from carshare
     if car['carID'] in currCars:
-        currCars.remove(car['carID'])
+        carshare['curr_cars'].remove(car['carID'])
         duration[carNdx]['end'] = time
         id, newCars = ({"carshareID": carshare['carshareID']},
                        {
@@ -79,7 +79,7 @@ def get_duration_utc(carshare, car, time):
     if car['checked_out'] is True:
         return time - carshare['duration'][carNdx]['begin']
     else:
-        return carshare['duration'][carNdx]['end'] - carshare['duration'][carNdx]['begin']
+        return carshare['duration'][carNdx]['end'], carshare['duration'][carNdx]['begin']
 
 
 def close_carshare(carshare, time, db):
@@ -112,7 +112,24 @@ def find_car_index(carID, all_cars):
             return i
     return -1
 
-def bill_carshare(carshare, db):
+def calc_days(car, carshare):
     allCars = carshare['all_cars']
-    for car in allCars:
-        carNdx = find_car_index(car, carshare['all_cars'])
+    for cars in allCars:
+        if(car == cars):
+            carNdx = find_car_index(car, carshare['all_cars'])
+            end = carshare['duration'][carNdx]['end']
+            start = carshare['duration'][carNdx]['end']
+            dt_end = datetime.strptime(end, "%m/%d/%Y, %H:%M:%S")
+            dt_start = datetime.strptime(start, "%m/%d/%Y, %H:%M:%S")
+            #time delta 
+            td = dt_end-dt_start
+
+            #calc price
+            days = td.days
+            #one minute grace period
+            if(td.seconds > 60):
+                days += 1
+            return days
+    return None
+        
+
