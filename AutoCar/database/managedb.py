@@ -212,7 +212,7 @@ class ManageDB:
         """Adds a new carshare to database Carshare Collection"""
         # make sure this is a new carshare
         if self.find_carshare(carshareID) is None:
-            carsharedb.add_carshare_to_collection(carshareID, users, cars, self)
+            carsharedb.add_carshare_to_collection(carshareID, users, cars, get_curr_utc(), self)
 
     def get_car_duration_and_rates(self, carshareID, carID):
         """returns how long a specific car in carshare has been checked out and their rate"""
