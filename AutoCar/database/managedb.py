@@ -216,11 +216,15 @@ class ManageDB:
             for carID in carIDs:
                 self.checkout_car(carID, carshareID)
 
-    def get_car_duration_and_rates(self, carshareID, carID):
+    def get_car_duration(self, car, carshare):
         """returns how long a specific car in carshare has been checked out and their rate"""
-        if self.find_carshare(carshareID) is not None:
-            return carsharedb.calc_days(carID, carshareID), self.get_car_rate
+        if car is not None and carshare is not None:
+            return carsharedb.calc_days(car, carshare, get_curr_utc())
 
+    def get_car_index(self, carID, carshareID):
+        if self.find_carshare(carshareID) is not None:
+            cs = self.find_carshare(carshareID)
+            return carsharedb.find_car_index(carID, cs)
 
     def close(self):
         """Close the database connection"""

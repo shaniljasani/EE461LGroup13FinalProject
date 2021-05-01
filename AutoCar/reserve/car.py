@@ -170,6 +170,10 @@ def carshare():
     # make a list of the cars retrieved from the db
     for car in cars_list:
         c = db.find_car(car)
+        c_index = db.get_car_index(car, carshare['carshareID'])
+        c['start'] = carshare['duration'][c_index]['begin']
+        c['end'] = carshare['duration'][c_index]['end']
+        c['days'] = db.get_car_duration(car, carshare)
         if(c != None):
             cars.append(c)
 
@@ -186,6 +190,10 @@ def carshare():
         cars = []
         for car in cars_list:
             c = db.find_car(car)
+            c_index = db.get_car_index(car, carshare['carshareID'])
+            c['start'] = carshare['duration'][c_index]['begin']
+            c['end'] = carshare['duration'][c_index]['end']
+            c['days'] = db.get_car_duration(car, carshare)
             if(c != None):
                 cars.append(c)
         cars_list = carshare.get('curr_cars')
@@ -197,6 +205,10 @@ def carshare():
     cars_list = carshare.get('curr_cars')
     for car in cars_list:
         c = db.find_car(car)
+        c_index = db.get_car_index(car, carshare['carshareID'])
+        c['start'] = carshare['duration'][c_index]['begin']
+        c['end'] = carshare['duration'][c_index]['end']
+        c['days'] = db.get_car_duration(car, carshare)
         if(c != None):
             av_cars.append(c)
             

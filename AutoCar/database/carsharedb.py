@@ -53,8 +53,9 @@ def add_car_to_carshare(carshare, car, time, db):
 
 def remove_car_from_carshare(carshare, car, time, db):
     currCars = carshare['curr_cars']
-    carNdx = find_car_index(car['carID'], carshare['all_cars'])
+    carNdx = find_car_index(car['carID'], carshare)
     duration = carshare['duration']
+    
     # remove the car from carshare
     if car['carID'] in currCars:
         carshare['curr_cars'].remove(car['carID'])
@@ -73,7 +74,7 @@ def remove_car_from_carshare(carshare, car, time, db):
 
 
 def get_duration_utc(carshare, car, time):
-    carNdx = find_car_index(car['carID'], carshare['all_cars'])
+    carNdx = find_car_index(car['carID'], carshare)
     if carNdx == -1:
         return
     if car['checked_out'] is True:
@@ -86,7 +87,7 @@ def close_carshare(carshare, time, db):
     currCars = carshare['curr_cars']
     for car in currCars:
         # find index of car in all_cars --> update duration
-        carNdx = find_car_index(car, carshare['all_cars'])
+        carNdx = find_car_index(car, carshare)
         if carNdx == -1:
             return
         carshare['duration'][carNdx]['end'] = time
@@ -106,24 +107,26 @@ def close_carshare(carshare, time, db):
     db.carshares.update_one(id, deactivate)
 
 
-def find_car_index(carID, all_cars):
-    for i, car in enumerate(all_cars):
+def find_car_index(carID, carshare):
+    for i, car in enumerate(carshare['all_cars']):
         if carID == car:
             return i
     return -1
 
-def calc_days(car, carshare):
+def calc_days(car, carshare, time):
     allCars = carshare['all_cars']
     for cars in allCars:
         if(car == cars):
-            carNdx = find_car_index(car, carshare['all_cars'])
+            carNdx = find_car_index(car, carshare)
             end = carshare['duration'][carNdx]['end']
-            start = carshare['duration'][carNdx]['end']
-            dt_end = datetime.strptime(end, "%m/%d/%Y, %H:%M:%S")
+            start = carshare['duration'][carNdx]['begin']
+            #if car hasn't been checked in yet
+            dt_end = datetime.strptime(time, "%m/%d/%Y, %H:%M:%S")
+            if(end is not None):
+                dt_end = datetime.strptime(end, "%m/%d/%Y, %H:%M:%S")
             dt_start = datetime.strptime(start, "%m/%d/%Y, %H:%M:%S")
             #time delta 
             td = dt_end-dt_start
-
             #calc price
             days = td.days
             #one minute grace period

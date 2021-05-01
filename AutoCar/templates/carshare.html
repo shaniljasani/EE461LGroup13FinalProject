@@ -8,12 +8,22 @@
 <!-- Template for carshare group to see what cars are in it -->
 <h1>Cars in this carshare</h1>
 <form class="form-carshare text-center" method="post">
-{% for car in cars %}
-    <p>{{car.get('make') + " " + car.get('model') + " " + car.get('year')}}</p>>
-    {% if car in av_cars %}
-        <button class="btn btn-lg btn-primary btn-block" id=car type="submit" name="ID" value="{{car.get('carID')}}">Check-in</button>  
-    {% endif %}
-{% endfor %}
+    {% for car in cars %}
+        <div class ="text-sm-center">
+            <p>{{car.get('make') + " " + car.get('model') + " " + car.get('year')}}</p>
+            <p>Price per day: {{car.get('rate')}}</p>
+            <p>checked out: {{car.get('start')}}</p>
+            {% if car.get('end') is not none %}
+                <p>checked in: {{car.get('end')}}</p>
+            {% else %}
+                <p>not yet checked in</p>
+            {% endif %}
+            <p>{{car.get('days')}} day(s) checked out</p>
+            {% if car in av_cars %}
+                <button class="btn btn-lg btn-primary btn-block" id=car type="submit" name="ID" value="{{car.get('carID')}}">Check-in "{{car.get('make') + " " + car.get('model') + " " + car.get('year')}}"</button>
+            {% endif %}
+        </div>
+    {% endfor %}
 </form>
 
 {% endblock %}
