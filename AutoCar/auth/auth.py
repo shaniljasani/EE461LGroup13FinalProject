@@ -9,6 +9,7 @@ auth_bp = Blueprint('auth_bp', __name__)
 #used for registering a user
 @auth_bp.route('/signup', methods=('GET', 'POST'))
 def signup():
+    error = None
     if request.method == 'POST':
         username = request.form.get('inputUsername')
         email = request.form.get('inputEmail')
@@ -19,7 +20,6 @@ def signup():
         hash_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
         db = ManageDB()
-        error = None
         # if user already exists, error or redirect to forgot my password
         if(db.find_user(username) != None):
             error = "User already exists with that username"
@@ -34,10 +34,7 @@ def signup():
             db.close()
             return redirect(url_for('auth_bp.login'))            
         
-        
-
-        #TODO flash error message
-    return render_template('signup.html')
+    return render_template('signup.html', error = error)
 
 #used for logging in a user
 @auth_bp.route('/login', methods=('GET', 'POST'))
@@ -46,10 +43,9 @@ def login():
     if request.method == 'POST':
         username = request.form.get('inputUsername')
         password = request.form.get('inputPassword')
-
+        error = None
         # create db object so we can access the database
         db = ManageDB()
-        error = None
         # if username isnt in database
         if(db.find_user(username) == None):
             error = "User not found"
@@ -79,9 +75,7 @@ def login():
             return redirect(url_for('dashboard'))
         
         db.close()
-        #TODO flash error message
-        # flash(error)
-    return render_template('login.html')
+    return render_template('login.html', error = error)
 
 #used to logout a user [clears cookies]
 @auth_bp.route('/logout')

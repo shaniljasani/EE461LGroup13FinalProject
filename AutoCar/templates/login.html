@@ -19,12 +19,11 @@
                         autofocus>
                     <label for="inputPassword" class="sr-only">Password</label>
                     <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="password" required>
-                    <!-- <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Remember me
-                        </label>
-                    </div> -->
                     <div class="mb-4"></div>
+                    {% if error is not none %}
+                        <label for="error" class="sr-only" style="color:rgb(83, 0, 0);">{{error}}</label>
+                        <div class="mb-4" ></div>
+                    {% endif %}
                     <button class="btn btn-lg btn-dark btn-block" type="submit">Sign In</button>
                 </form>
                 
