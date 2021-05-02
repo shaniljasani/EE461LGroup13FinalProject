@@ -49,6 +49,25 @@ def add_car_to_carshare(carshare, car, time, db):
                        })
         # push to carshare collection
         db.carshares.update_one(id, newCars)
+    
+def readd_car_to_carshare(carshare, car, db):
+    currCars = carshare['curr_cars']
+    allCars = carshare['all_cars']
+    duration = carshare['duration']
+    carNdx = find_car_index(car['carID'], carshare)
+    # add new car
+    if car['carID'] in allCars:
+        currCars.append(car['carID'])
+        duration[carNdx]['end'] = None
+        id, newCars = ({"carshareID": carshare['carshareID']},
+                       {
+                           "$set": {
+                               "curr_cars": currCars,
+                               "duration": duration,
+                           },
+                       })
+        # push to carshare collection
+        db.carshares.update_one(id, newCars)
 
 
 def remove_car_from_carshare(carshare, car, time, db):
