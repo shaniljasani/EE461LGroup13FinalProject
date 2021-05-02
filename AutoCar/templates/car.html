@@ -10,14 +10,12 @@
     <div class="container">
         <h1 class="text-center mt-5 mb-5"> {{car.get("make") + " " + car.get("model")}} </h1>
         <div class="row">
-
             <div class="col-lg-8 col-md-8">
                 <div class="mb-5">
                     <img src="{{"static/images/cars/"+car.get('make').replace(" ","")+car.get('model').replace(" ","")+car.get('year')+"/0.jpg"}}"" class="img-fluid">
                 </div>
                 <div class="mb-5">
                     <h2>Specifications</h2>
-
                     <table class="table">
                         <tbody>
                             <tr>
@@ -26,49 +24,32 @@
                             </tr>
                             <tr>
                                 <td scope="row"><strong>Make</strong></td>
-                                <!-- TODO Dynamic -->
                                 <td>{{car.get("make")}}</td>
                             </tr>
                             <tr>
                                 <td scope="row"><strong>Model</strong></td>
-                                <!-- TODO Dynamic -->
                                 <td>{{car.get("model")}}</td>
+                            </tr>
+                            <tr>
+                                <td scope="row"><strong>ID</strong></td>
+                                <td>{{car.get("carID")}}</td>
                             </tr>
                         </tbody>
                     </table>
-                    <!-- #TODO cars need descriptions -->
-                    <p>Tesla is head of the push toward self-driving vehicles.</p>
+                    <p>{{car.get("description")}}</p>
                 </div>
-
-
             </div>
-
             <div class="col-lg-4 col-md-4 project-info text-center">
                 <div class="row project-info-card">
-                    <!-- TODO Add Logic for rent now vs view rental status -->
                     <h3>Rental Information</h3>
                     <p>Status: {{"Available" if not car.get('checked_out') else "Checked Out"}}</p>
-
-                    <!-- Else -->
                     {% if session['username'] %}
                     <div class="row">
-                        <!-- <h4>Current Renters</h4>
-                        <p>
-                            TODO Add Logic here -->
-                            <!-- <span><a href="/profile?user=shanil" class="project-info-users"> Shanil </a></span>
-                            <span>&nbsp; | &nbsp;</span>
-                            <span><a href="/profile?user=renzo" class="project-info-users"> Renzo </a></span>
-                        </p> -->
                         <a href="{{"/addcar?car=" + car.get('carID')}}" class="btn btn-dark btn-sm mb-3">Add to Existing Carshare</a>
                         <a href="{{"/newcs?car=" + car.get('carID')}}" class="btn btn-dark btn-sm mb-3">Add to new Carshare</a>
-
-                        <!-- Note for shanil: add rest of DB things here -->
                     </div>
                     {% endif %}
                 </div>
-
-
-
             </div>
         </div>
     </div>

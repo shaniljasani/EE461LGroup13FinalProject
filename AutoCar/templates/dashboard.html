@@ -11,7 +11,6 @@
     <div class="container">
         <h1 class="text-center mt-5 mb-5">Available Cars</h1>
         <div class="row">
-
             {% for car in available_cars %}
             <div class="col-md-4 col-lg-4 col-sm-12">
                 <div class="card">
@@ -31,16 +30,12 @@
                 </div>
             </div>
             {% endfor %}
-
         </div>
     </div>
 </div>
 
 
-
-
-<!-- My Carshares
-    #TODO CHANGE CLASS NAME Section -->
+<!-- My Carshares -->
 {% if session['username'] %}
 <div class="available-cars" id="available-cars">
 	<div class="container">
