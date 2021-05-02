@@ -197,6 +197,17 @@ class ManageDB:
         if carshare and car is not None:
             carsharedb.add_car_to_carshare(carshare, car, get_curr_utc(), self)
             self.checkout_car(carID, carshareID)
+    
+    def readd_car_to_carshare(self, carshareID, carID):
+        """change car status, set car as part of curr_car and reset its end date"""
+        carshare = self.find_carshare(carshareID)
+        car = self.find_car(carID)
+        # make sure in carshare and was closed
+        if carshare and car is not None:
+            if car['carID'] in carshare['all_cars'] and car['checked_out'] is False:
+                carsharedb.readd_car_to_carshare(carshare, car, self)
+                self.checkout_car(carID, carshareID)
+                
 
     def remove_car_from_carshare(self, carshareID, carID):
         """Remove a car from carshare and set car['checked_out'] = False, inits end duration"""

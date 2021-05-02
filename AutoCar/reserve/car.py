@@ -100,12 +100,12 @@ def newcs():
         db.add_carshare_to_user_history(session.get('username'), g_id)
         
         #TODO possibly redirect to another page other than the home page, like a summary page
-        return redirect(url_for('index'))
+        return redirect(url_for('car_bp.carshare', id=g_id))
     # close the database to not make copies
     db.close()
     return render_template('new_carshare.html')
 
-#add to new carshare
+#add to carshare
 @car_bp.route('/addcar', methods=('GET', 'POST'))
 def addcar():
     # make sure a user is logged in
@@ -128,21 +128,26 @@ def addcar():
     if request.method == 'POST':
         # make sure the car is still available
         if(car.get('checked_out')):
-            #TODO send message car just got checked out 
             return redirect(url_for('dashboard'))
         
-        #TODO update carshare price
-        # change the car's status to checked out # add the car to the carshare group        
-        db.add_car_to_carshare(request.form.get('carshare_chosen'), car.get('carID'))
-
-        return redirect(url_for('dashboard'))
+        carshareID = request.form.get('carshare_chosen')
+        #if car was already added: change car status, set car as part of curr_car and reset its end date
+        if car.get('carID') in db.find_carshare(carshareID).get('all_cars'):
+            db.readd_car_to_carshare(carshareID, car.get('carID'))
+        else: # change the car's status to checked out # add the car to the carshare group     
+            db.add_car_to_carshare(carshareID, car.get('carID'))
+        db.close()
+        return redirect(url_for('car_bp.carshare', id=carshareID))
 
 
 
     #TODO a check to see if carshare is completed or not [should not list these]
-    rend = render_template('addcar.html', carshares=db.find_user(session.get('username')).get('history'))
+    carshares = []
+    for carshareID in db.find_user(session.get('username')).get('history'):
+        if db.find_carshare(carshareID).get('active') is True:
+            carshares.append(carshareID)
     db.close()
-    return rend
+    return render_template('addcar.html', carshares=carshares)
 
 
 #view carshare
