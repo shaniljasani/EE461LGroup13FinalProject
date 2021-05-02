@@ -20,8 +20,14 @@
 6. Checking out a car removes it from the list of available cars.
 
 *To download datasets*
+
 7. Visit the [downloads](http://autocar.pythonanywhere.com/downloads) page. 
-8. Here, you will see a list of available datasets
+8. Here, you will see a list of available datasets. Click on the download button and a `.csv` file will be downloaded to your computer
+
+*To view your current rentals (projects)*
+
+9. Scroll to the bottom of the [dashboard](http://autocar.pythonanywhere.com/dashboard) page. Here, you will see a list of all active rentals you are a part of. 
+10. Click on one of the projects, and a list of cars and users within the rental will be displayed.
 
 # Installation
 
