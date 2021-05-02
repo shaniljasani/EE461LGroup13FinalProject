@@ -24,10 +24,20 @@
 7. Visit the [downloads](http://autocar.pythonanywhere.com/downloads) page. 
 8. Here, you will see a list of available datasets. Click on the download button and a `.csv` file will be downloaded to your computer
 
-*To view your current rentals (projects)*
+*To view your current carshares (projects)*
 
-9. Scroll to the bottom of the [dashboard](http://autocar.pythonanywhere.com/dashboard) page. Here, you will see a list of all active rentals you are a part of. 
+9. Scroll to the bottom of the [dashboard](http://autocar.pythonanywhere.com/dashboard) page. Here, you will see a list of all rentals you are a part of. 
 10. Click on one of the projects, and a list of cars and users within the rental will be displayed.
+
+*To return cars from your carshare*
+
+11. Cars that have not been checked out yet have a button that checks-in the car.
+12. At the bottom of the page there is a button that closes the carshare and returns any checked-out cars.
+
+*To view the bill for your carshare*
+
+13. To get billing, click [Billing](http://autocar.pythonanywhere.com/billing) in the navigation bar
+14. Select a carshared that has been closed (see 12.) to view the bill
 
 # Installation
 
