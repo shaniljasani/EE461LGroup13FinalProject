@@ -39,11 +39,10 @@ def signup():
 #used for logging in a user
 @auth_bp.route('/login', methods=('GET', 'POST'))
 def login():
-    
+    error = None
     if request.method == 'POST':
         username = request.form.get('inputUsername')
         password = request.form.get('inputPassword')
-        error = None
         # create db object so we can access the database
         db = ManageDB()
         # if username isnt in database
