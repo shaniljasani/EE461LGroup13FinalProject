@@ -6,5 +6,65 @@
 {{ super() }}
 
 <!-- Template for carshare group to see what cars are in it -->
-<h1>Current Billing</h1>
+<h2>Billing</h2>
+<form class="form-signin text-center" method="post">
+    <select name="carshare_chosen" id="carshare_chosen">
+        {% for carshare in carshares %}
+            <option value="{{carshare}}">{{carshare}}</option>
+        {% endfor %}
+    </select>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">View Bill</button>
+</form>
+
+{% if carshareID is not none %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="static/css/bill.css" media="all" />
+  </head>
+  <body>
+    <main>
+      <h1  class="clearfix"><small><span>Carshare ID:</span></small> {{carshareID}} <small><span>DATE</span><br />{{today}}</small></h1>
+      <table>
+        <thead>
+          <tr>
+            <th>NAME</th>
+            <th>CAR ID</th>
+            <th>RATE</th>
+            <th>DAYS</th>
+            <th>TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for car in cars %}
+          <tr>
+            <td>{{car.get('make') + " " + car.get('model') + " " + car.get('year')}}</td>
+            <td>{{car.get('carID')}}</td>
+            <td>{{car.get('rate')}} credits</td>
+            <td>{{car.get('days')}}</td>
+            <td>{{car.get('rate')*car.get('days')}} credits</td>
+          </tr>
+        {% endfor %}
+          <tr>
+            <td colspan="3"></td>
+            <td>SUBTOTAL</td>
+            <td>{{total}} credits</td>
+          </tr>
+          <tr>
+            <td colspan="3"></td>
+            <td>10 Credit fee per car</td>
+            <td>{{(cars | length)*10}} credits</td>
+          </tr>
+          <tr>
+            <td colspan="3"></td>
+            <td>Grand Total</td>
+            <td>{{(cars | length)*10 + total}} credits</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>    
+{% endif %}
 {% endblock %}

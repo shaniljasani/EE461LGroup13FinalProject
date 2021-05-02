@@ -4,26 +4,55 @@
 
 {% block page_content %}
 {{ super() }}
-
-<!-- Template for carshare group to see what cars are in it -->
-<h1>Cars in this carshare</h1>
 <form class="form-carshare text-center" method="post">
-    {% for car in cars %}
-        <div class ="text-sm-center">
-            <p>{{car.get('make') + " " + car.get('model') + " " + car.get('year')}}</p>
-            <p>Price per day: {{car.get('rate')}}</p>
-            <p>checked out: {{car.get('start')}}</p>
+<!-- Template for carshare group to see what cars are in it -->
+
+<h1>Cars in {{carshareID}}</h1>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="static/css/bill.css" media="all" />
+  </head>
+  <body>
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>NAME</th>
+            <th>CAR ID</th>
+            <th>CHECK OUT (UTC)</th>
+            <th>CHECK IN (UTC)</th>
+            <th>RATE</th>
+            <th>RETURN CAR</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for car in cars %}
+          <tr>
+            <td>{{car.get('make') + " " + car.get('model') + " " + car.get('year')}}</td>
+            <td>{{car.get('carID')}}</td>
+            <td>{{car.get('start')}}</td>
             {% if car.get('end') is not none %}
-                <p>checked in: {{car.get('end')}}</p>
+                <td>{{car.get('end')}}</td>
             {% else %}
-                <p>not yet checked in</p>
+                <td>n/a</td>
             {% endif %}
-            <p>{{car.get('days')}} day(s) checked out</p>
+            <td>{{car.get('rate')}}</td>
             {% if car in av_cars %}
-                <button class="btn btn-lg btn-primary btn-block" id=car type="submit" name="ID" value="{{car.get('carID')}}">Check-in "{{car.get('make') + " " + car.get('model') + " " + car.get('year')}}"</button>
+                <td><button class="btn btn-sm btn-primary btn-block" id=car type="submit" name="ID" value="{{car.get('carID')}}">Check-in {{car.get('make') + " " + car.get('model') + " " + car.get('year')}}</button></td>
+            {% else %}
+                <td></td>
             {% endif %}
-        </div>
-    {% endfor %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </main>
+  </body>
+  {% if active is true %}
+    <button class="btn btn-sm btn-primary btn-block" id=car type="submit" name="ID" value="closeCS">Close Carshare</button>
+  {% endif %}
+</html>    
 </form>
 
 {% endblock %}

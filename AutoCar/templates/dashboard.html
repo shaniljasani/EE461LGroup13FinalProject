@@ -46,7 +46,6 @@
 	<div class="container">
             {% if carshares %}
             <h1 class="text-center">My Carshares</h1>
-            {% endif %}
             <div class="row">
                 {% for carshare in carshares %}
                 <!-- TODO for each available car -->
@@ -59,9 +58,8 @@
                     </div>
                 </div>
                 {% endfor %}
-                
             </div>
-        
+            {% endif %}        
 	</div>
 </div>
 {% endif %}
