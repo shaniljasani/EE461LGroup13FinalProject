@@ -30,10 +30,11 @@ def signup():
         else:
             db.add_user_to_collection(username, hash_password)
             #redirect to login
+            # close the ManageDB object so that we're not creating multiples
+            db.close()
             return redirect(url_for('auth_bp.login'))            
         
-        # close the ManageDB object so that we're not creating multiples
-        db.close()
+        
 
         #TODO flash error message
     return render_template('signup.html')

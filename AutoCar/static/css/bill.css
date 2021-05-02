@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+* {
+    font-family: "Nunito";
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+a {
+  color: #001028;
+  text-decoration: none;
+}
+
+body {
+  position: relative;
+  width: 21cm;  
+  height: 29.7cm; 
+  margin: 0 auto; 
+  color: #001028;
+  background: #FFFFFF; 
+  font-size: 14px; 
+}
+
+h1 {
+  color: #5D6975;
+  font-size: 2.4em;
+  line-height: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  border-top: 1px solid #5D6975;
+  border-bottom: 1px solid #5D6975;
+  margin: 0 0 2em 0;
+}
+
+h1 small { 
+  font-size: 0.45em;
+  line-height: 1.5em;
+  float: left;
+} 
+
+h1 small:last-child { 
+  float: right;
+} 
+
+#project { 
+  float: left; 
+}
+
+#company { 
+  float: right; 
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 30px;
+}
+
+table th,
+table td {
+  text-align: center;
+  white-space: nowrap;    
+}
+
+table th {
+  padding: 5px 20px;
+  color: #5D6975;
+  border-bottom: 1px solid #C1CED9;    
+  font-weight: normal;
+}
+
+
+table td {
+  padding: 20px;
+}
+
+table td.right{
+    text-align: right;
+}
+table tr:nth-child(2n-1) td {
+  background: #EEEEEE;
+}
+
+table tr:last-child td {
+  background: #DDDDDD;
+}
+

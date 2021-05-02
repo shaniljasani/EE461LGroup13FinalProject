@@ -2,7 +2,6 @@ import functools
 #creates a blueprint named auth
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
 from database.managedb import ManageDB
-from datetime import date
 
 car_bp = Blueprint('car_bp', __name__)
 
@@ -170,48 +169,45 @@ def carshare():
     # make a list of the cars retrieved from the db
     for car in cars_list:
         c = db.find_car(car)
-        c_index = db.get_car_index(car, carshare['carshareID'])
-        c['start'] = carshare['duration'][c_index]['begin']
-        c['end'] = carshare['duration'][c_index]['end']
-        c['days'] = db.get_car_duration(car, carshare)
-        if(c != None):
+        if(c is not None):
+            c_index = db.get_car_index(car, carshare['carshareID'])
+            c['start'] = carshare['duration'][c_index]['begin']
+            c['end'] = carshare['duration'][c_index]['end']
+            c['days'] = db.get_car_duration(car, carshare)
             cars.append(c)
+            if c['carID'] in carshare.get('curr_cars'):
+                    av_cars.append(c)
 
     # creates buttons for checking in a car that the carshare currently has checked out
     if request.method == 'POST':
-        for car in cars:
-            if request.form.get('ID') == car.get('carID'):
-                # remove the car from the carshare & tell the database that the car is checked in
+        # request to close entire cs
+        if request.form.get('ID') == 'closeCS':
+            for car in av_cars:
                 db.remove_car_from_carshare(carshare.get('carshareID'), car.get('carID'))
+            db.close_carshare(carshare.get('carshareID'))
+        else: # request to check-in individual car
+            for car in cars:
+                if request.form.get('ID') == car.get('carID'):
+                    # remove the car from the carshare & tell the database that the car is checked in
+                    db.remove_car_from_carshare(carshare.get('carshareID'), car.get('carID'))
 
         # update the carshare now that we've removed a car from it
         carshare = db.find_carshare(request.args.get('id'))
         cars_list = carshare.get('all_cars')
         cars = []
+        av_cars = []
         for car in cars_list:
             c = db.find_car(car)
-            c_index = db.get_car_index(car, carshare['carshareID'])
-            c['start'] = carshare['duration'][c_index]['begin']
-            c['end'] = carshare['duration'][c_index]['end']
-            c['days'] = db.get_car_duration(car, carshare)
-            if(c != None):
+            if(c is not None):
+                c_index = db.get_car_index(car, carshare['carshareID'])
+                c['start'] = carshare['duration'][c_index]['begin']
+                c['end'] = carshare['duration'][c_index]['end']
+                c['days'] = db.get_car_duration(car, carshare)
                 cars.append(c)
-        cars_list = carshare.get('curr_cars')
-        for car in cars_list:
-            c = db.find_car(car)
-            if(c != None):
-                av_cars.append(c)
-
-    cars_list = carshare.get('curr_cars')
-    for car in cars_list:
-        c = db.find_car(car)
-        c_index = db.get_car_index(car, carshare['carshareID'])
-        c['start'] = carshare['duration'][c_index]['begin']
-        c['end'] = carshare['duration'][c_index]['end']
-        c['days'] = db.get_car_duration(car, carshare)
-        if(c != None):
-            av_cars.append(c)
-            
+                if c['carID'] in carshare.get('curr_cars'):
+                    av_cars.append(c)
+        
+    
     # close the database so we don't make copies
     db.close()
-    return render_template('carshare.html', cars=cars, av_cars=av_cars)
+    return render_template('carshare.html', cars=cars, av_cars=av_cars, carshareID=carshare['carshareID'], active=carshare['active'])

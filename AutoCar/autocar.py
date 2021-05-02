@@ -10,6 +10,7 @@ from flask import Flask, render_template, g, session, send_file, redirect
 from auth.auth import auth_bp
 from reserve.car import car_bp
 from download.download import downloads_bp
+from billing.billing import bill_bp
 from database.managedb import ManageDB 
 #TODO add pandas to requirements for installing
 import pandas as pd
@@ -22,6 +23,7 @@ app.secret_key = 'secret key' # for now use just 'secret key'
 app.register_blueprint(auth_bp) 
 app.register_blueprint(car_bp)
 app.register_blueprint(downloads_bp)
+app.register_blueprint(bill_bp)
 # redirect on trainling slashes
 @app.before_request
 def clear_trailing():
@@ -49,12 +51,6 @@ def dashboard():
     # close the db so we don't make copies
     db.close()
     
-# the billing page
-@app.route('/billing')
-def billing():
-    if(session.get('username')):
-        return render_template('billing.html')
-    return render_template("login.html")
 
 # the dataset downloads page
 @app.route('/downloads')
