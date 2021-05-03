@@ -45,10 +45,10 @@ def join():
             #TODO prompt error if no car found
             return render_template('join.html')
         #TODO should put in a request not auto join, for purpose of checkpoint it autojoins
-        # if user is already in a carshare group
+        # if user is already in that carshare group
         if(session.get('username') in db.find_carshare(groupID)['users']):
-            #TODO error that user already in group
-            return render_template('join.html')
+            # redirect to their carshare's page
+            return redirect(url_for('car_bp.carshare', id=groupID))
         # else if no errors, add the user to that carshare and add that to the user's history
         db.add_user_to_carshare(groupID, session.get('username'))
         # close the database so we don't make copies
