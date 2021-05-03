@@ -79,5 +79,4 @@ python autocar.py
 
 ### Resources Used 
 
-- [Bootstrap Landing Page](https://www.freecodecamp.org/news/learn-bootstrap-4-in-30-minute-by-building-a-landing-page-website-guide-for-beginners-f64e03833f33/)
-- [Photo by Unsplash](https://unsplash.com/@introspectivedsgn?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+- View presentation PDF for complete listing with purpose of resource and link
