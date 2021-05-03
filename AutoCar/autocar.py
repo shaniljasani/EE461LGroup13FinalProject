@@ -45,11 +45,14 @@ def dashboard():
     # if the user is logged in, show their carshares as well as available cars
     if(session.get('username')):
         # get the carshares and available cars from the database and display them in the dashboard template
-        return render_template("dashboard.html", carshares=db.find_user(session.get('username')).get('history'), available_cars = db.get_all_available_cars())
+        ret = render_template("dashboard.html", carshares=db.find_user(session.get('username')).get('history'), available_cars = db.get_all_available_cars())
+        db.close()
+        return ret
     # else if no one is logged in just show the available cars
-    return render_template("dashboard.html", available_cars = db.get_all_available_cars())
+    ret = render_template("dashboard.html", available_cars = db.get_all_available_cars())
+    db.close
+    return ret
     # close the db so we don't make copies
-    db.close()
     
 
 # the dataset downloads page
