@@ -3,11 +3,13 @@
 import managedb
 
 
-def add_carshare_to_collection(carshareID, users, cars, db):
+def add_carshare_to_collection(carshareID, name, descrip, users, cars, db):
     init_duration = []
     for car in cars:
         init_duration.append({"begin": managedb.get_curr_utc(), "end": None})
     post = {"carshareID": carshareID,
+            "name": name,
+            "description": descrip,
             "users": users,
             "curr_cars": cars,
             "all_cars": cars,
@@ -112,4 +114,3 @@ def find_car_index(carID, all_cars):
         if carID == car:
             return i
     return -1
-

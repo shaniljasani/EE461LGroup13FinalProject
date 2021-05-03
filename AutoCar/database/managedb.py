@@ -202,11 +202,11 @@ class ManageDB:
             if carsharedb.remove_car_from_carshare(carshare, car, self) is True:
                 self.checkin_car(carID)
 
-    def add_carshare_to_collection(self, carshareID, users, cars):
+    def add_carshare_to_collection(self, carshareID, nm, descrip, users, cars):
         """Adds a new carshare to database Carshare Collection"""
         # make sure this is a new carshare
         if self.find_carshare(carshareID) is None:
-            carsharedb.add_carshare_to_collection(carshareID, users, cars, self)
+            carsharedb.add_carshare_to_collection(carshareID, nm, descrip, users, cars, self)
 
     def close(self):
         """Close the database connection"""
