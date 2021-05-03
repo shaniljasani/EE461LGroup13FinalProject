@@ -7,7 +7,7 @@
 <form class="form-carshare text-center" method="post">
 <!-- Template for carshare group to see what cars are in it -->
 <!-- file is in 2 space tabs to be more visible -->
-<h1>Cars in {{carshareID}}</h1>
+<h1>Cars in {{carshare.get('name')}}</h1>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -46,6 +46,17 @@
           </tr>
         {% endfor %}
         </tbody>
+      </table>
+      <table>
+        <tr>
+            <td>Carshare ID: {{carshare.get('carshareID')}}</td>
+        </tr>
+        <tr>
+            <td>Description: {{carshare.get('description')}}</td>
+        </tr>
+        <tr>
+            <td>Users: {{users}}</td>
+        </tr>
       </table>
     </main>
   </body>

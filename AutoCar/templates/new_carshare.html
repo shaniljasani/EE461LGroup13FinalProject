@@ -6,9 +6,15 @@
 {{ super() }}
 
 <h1>New Carshare</h1>
-<form class="form-signin text-center" method="post"
+<form class="form-signin text-center" method="post">
     <label for="inputID" class="sr-only">Carshare ID:</label>
-    <input type="id" id="inputID" name="inputID" class="form-control" placeholder="carshareID" required
+    <input type="id" id="inputID" name="inputID" class="form-control" placeholder="Carshare ID" required
+    autofocus>
+    <label for="inputID" class="sr-only">Name:</label>
+    <input type="id" id="name" name="name" class="form-control" placeholder="Carshare Name" required
+    autofocus>
+    <label for="inputID" class="sr-only">Description:</label>
+    <input type="id" id="description" name="description" class="form-control" placeholder="description about carshare" required
     autofocus>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Checkout</button>
 </form>

@@ -90,12 +90,14 @@ def newcs():
         
         #creates new carshare
         g_id = request.form.get('inputID')
+        name = request.form.get('name')
+        description = request.form.get('description')
         #if already taken do nothin TODO prompt error message
         if(db.find_carshare(g_id) != None):
             return render_template('new_carshare.html')
         # change the car's status to checked out
         # add the car to the carshare
-        db.add_carshare_to_collection(g_id, [session.get('username')], [car.get('carID')])
+        db.add_carshare_to_collection(g_id, name, description, [session.get('username')], [car.get('carID')])
         # add this to the user's transacation history
         db.add_carshare_to_user_history(session.get('username'), g_id)
         
@@ -211,8 +213,8 @@ def carshare():
                 cars.append(c)
                 if c['carID'] in carshare.get('curr_cars'):
                     av_cars.append(c)
-        
-    
+    #string of all users 
+    users = ', '.join(carshare.get('users'))
     # close the database so we don't make copies
     db.close()
-    return render_template('carshare.html', cars=cars, av_cars=av_cars, carshareID=carshare['carshareID'], active=carshare['active'])
+    return render_template('carshare.html', cars=cars, av_cars=av_cars, active=carshare['active'], carshare = carshare, users = users)
