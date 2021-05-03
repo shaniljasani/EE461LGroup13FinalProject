@@ -2,11 +2,13 @@
 # users (list), current_cars (list), all_cars (list), duration (list) <-- corresponds to all_cars
 from datetime import datetime
 
-def add_carshare_to_collection(carshareID, users, cars, time, db):
+def add_carshare_to_collection(carshareID, name, description, users, cars, time, db):
     init_duration = []
     for car in cars:
         init_duration.append({"begin": time, "end": None})
     post = {"carshareID": carshareID,
+            "name": name,
+            "description": description,
             "users": users,
             "curr_cars": cars,
             "all_cars": cars,
