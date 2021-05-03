@@ -6,6 +6,6 @@ Project Plan & Planning Document
 ## [Presentation](https://docs.google.com/presentation/d/1juz9XHWT76aRvAsTMsBal4QT3Y7X225O_kpOCYwyoOI/edit#slide=id.gd162f5957b_0_236)
 Slide Deck for In-Class Presentation
 
-## [Documentation](/documentation/)
+## [Documentation](/AutoCar/documentation/)
 
 ## [Deployment](http://autocar.pythonanywhere.com/)
